@@ -1,0 +1,11 @@
+// File containing the common theme for all pages on the site 
+
+// Just testing SCSS
+body {
+    background: darkred;
+
+    h1 {
+        font-family: 'Courier New', Courier, monospace;
+        color: white; 
+    }
+}

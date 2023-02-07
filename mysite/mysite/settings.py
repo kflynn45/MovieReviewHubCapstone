@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'compressor'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             'mysite/templates/',
-            'mysite/templates/partial'
+            'mysite/templates/partial/'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -118,14 +119,26 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-
 STATIC_URL = 'mysite/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'mysite/static/'),
-    os.path.join(BASE_DIR, 'mysite/static/scripts/')
+    os.path.join(BASE_DIR, 'mysite', 'static'),
+    os.path.join(BASE_DIR, 'mysite', 'static', 'scripts'),
+    os.path.join(BASE_DIR, 'mysite', 'static', 'styles')
+]
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder', 
+    'compressor.finders.CompressorFinder'
 ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Compress settings
+COMPRESS_ROOT = os.path.join(BASE_DIR, 'mysite', 'static', 'styles')
+COMPRESS_PRECOMPILERS = [
+    ('text/x-scss', 'django_libsass.SassCompiler')
+]
