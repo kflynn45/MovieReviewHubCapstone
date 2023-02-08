@@ -1,8 +1,14 @@
 {% load static %}
+{% load compress %}
 
 <!-- Media links -->
 <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
 <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}"> 
+
+<!-- SCSS -->
+{% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'theme.scss' %}">
+{% endcompress %}
 
 <!-- Scripts -->
 <script type="text/javascript" src="{% static 'jquery-3.6.3.min.js' %}"></script>
