@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mysite',
     'compressor'
 ]
 
@@ -131,9 +132,11 @@ STATICFILES_FINDERS = [
     'compressor.finders.CompressorFinder'
 ]
 
+# Media (Default file save location)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mysite', 'media')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
@@ -142,3 +145,7 @@ COMPRESS_ROOT = os.path.join(BASE_DIR, 'mysite', 'static', 'styles')
 COMPRESS_PRECOMPILERS = [
     ('text/x-scss', 'django_libsass.SassCompiler')
 ]
+
+# IMDb settings
+IMDB_BASE_URL = 'https://datasets.imdbws.com/'
+IMDB_DATASETS = ['title.basics.tsv.gz', 'title.ratings.tsv.gz']
