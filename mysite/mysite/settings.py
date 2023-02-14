@@ -148,4 +148,19 @@ COMPRESS_PRECOMPILERS = [
 
 # IMDb settings
 IMDB_BASE_URL = 'https://datasets.imdbws.com/'
-IMDB_DATASETS = ['title.basics.tsv.gz', 'title.ratings.tsv.gz']
+IMDB_TITLE_TYPES = ['movie', 'tvSeries']
+IMDB_DATASETS = [
+    {
+        'external_filename': 'title.basics.tsv.gz',
+        'internal_filename': 'title_basics.tsv',
+        'tsv_fields': ['tconst', 'titleType', 'primaryTitle', 'startYear'],
+        'db_fields': ['unique_id', 'title_type', 'title', 'release_year']
+    },
+    {
+        'external_filename': 'title.ratings.tsv.gz',
+        'internal_filename': 'title_ratings.tsv', 
+        'tsv_fields': ['tconst', 'averageRating'],
+        'db_fields': ['unique_id', 'rating']
+    }
+]
+    
