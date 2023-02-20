@@ -68,7 +68,7 @@ def close_datasets(datasets):
 Validate/filter data before entering into the database.
 '''
 def validate(row):
-    return row['title_type'] in settings.IMDB_TITLE_TYPES and row['votes'] >= settings.IMDB_TITLE_MINIMUM_VOTES
+    return row['title_type'] in settings.IMDB_TITLE_TYPES and int(row['votes']) >= settings.IMDB_TITLE_MINIMUM_VOTES
 
 '''
 Parse current dataset and refresh database with current data.
@@ -77,7 +77,7 @@ Update entries for existing movies, insert new records if they don't already exi
 def upsert():
     datasets = open_datasets()
     added, modified = 0, 0
-    while added < 100:               
+    while True:                 # Loop until we run out of data                
         current_values = {}
         try: 
             for ds in datasets:
@@ -87,7 +87,6 @@ def upsert():
         except StopIteration: 
            break
 
-        #print(current_values)
         if validate(current_values):
             title, created = ImdbTitle.objects.update_or_create(
                 unique_id=current_values['unique_id'], 
@@ -121,19 +120,19 @@ Custom manage.py command entry point
 '''
 class Command(BaseCommand): 
     def handle(self, *args, **options):
-        print("Starting IMDb data integration.")
+        time_elapsed = lambda start: str(datetime.timedelta(seconds=time.perf_counter() - start))
+        print("Starting IMDb data integration.", flush=True)
 
         start = time.perf_counter()
         download_current_datasets()
-        finish = time.perf_counter()
-        print(f"Successfully dowloaded IMDb datatsets in {str(datetime.timedelta(seconds=finish-start))}.")
+        print(f"Successfully dowloaded IMDb datatsets in {time_elapsed(start)}.", flush=True)
 
         start = time.perf_counter()
         added, modified = upsert()
-        finish = time.perf_counter()
-        print(f"{added} records created, {modified} records updated in {str(datetime.timedelta(seconds=finish-start))}.")
+        print(f"{added} records created, {modified} records updated in {time_elapsed(start)}.", flush=True)
 
         cleanup_dataset_files()
+
         print("Successfully completed IMDb data integration.")
 
 
