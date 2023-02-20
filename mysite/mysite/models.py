@@ -13,6 +13,7 @@ class ImdbTitle(models.Model):
     title = models.CharField(max_length=200)
     release_year = models.IntegerField()
     rating = models.DecimalField(decimal_places=1, max_digits=3)
+    votes = models.IntegerField()
 
     def __str__(self):
         return f"{self.title} | {self.release_year}"

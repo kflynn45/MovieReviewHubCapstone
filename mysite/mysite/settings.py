@@ -149,6 +149,7 @@ COMPRESS_PRECOMPILERS = [
 # IMDb settings
 IMDB_BASE_URL = 'https://datasets.imdbws.com/'
 IMDB_TITLE_TYPES = ['movie', 'tvSeries']
+IMDB_TITLE_MINIMUM_VOTES = 1000             # Added to try to filter more obscure results
 IMDB_DATASETS = [
     {
         'external_filename': 'title.basics.tsv.gz',
@@ -159,8 +160,8 @@ IMDB_DATASETS = [
     {
         'external_filename': 'title.ratings.tsv.gz',
         'internal_filename': 'title_ratings.tsv', 
-        'tsv_fields': ['tconst', 'averageRating'],
-        'db_fields': ['unique_id', 'rating']
+        'tsv_fields': ['tconst', 'averageRating', 'numVotes'],
+        'db_fields': ['unique_id', 'rating', 'votes']
     }
 ]
     

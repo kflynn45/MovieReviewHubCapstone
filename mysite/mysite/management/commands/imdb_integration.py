@@ -19,16 +19,17 @@ import datetime
 
 
 '''
-Download the newest version of the passed IMDb dataset and save to the server as media
+Download the newest version of the IMDb datasets and save to the server as media
 '''
-def download_current_dataset(filename): 
-    response = requests.get(settings.IMDB_BASE_URL + filename)
-    if response.status_code == 200:
-        with open(os.path.join(settings.MEDIA_ROOT, 'datasets', filename), 'wb') as dataset:
-            dataset.write(gzip.decompress(response.content))
-    else:
-        cleanup_dataset_files()
-        raise CommandError(f"Unable to download current version of {filename}.")
+def download_current_datasets(): 
+    for ds_info in settings.IMDB_DATASETS:
+        response = requests.get(settings.IMDB_BASE_URL + ds_info['external_filename'])
+        if response.status_code == 200:
+            with open(os.path.join(settings.MEDIA_ROOT, 'datasets', ds_info['internal_filename']), 'wb') as dataset:
+                dataset.write(gzip.decompress(response.content))
+        else:
+            cleanup_dataset_files()
+            raise CommandError(f"Unable to download current version of {ds_info['external_filename']}.")
 
 
 
@@ -58,17 +59,16 @@ def open_datasets():
 '''
 Close the file pointers created by open_datasets
 '''
-def close_datasets(ds):
-    for dataset in ds: 
-        dataset['file_handle'].close() 
+def close_datasets(datasets):
+    for ds in datasets: 
+        ds['file_handle'].close() 
 
 
 '''
 Validate/filter data before entering into the database.
 '''
 def validate(row):
-    #TODO: Discuss and implement filtering for data
-    return True
+    return row['title_type'] in settings.IMDB_TITLE_TYPES and row['votes'] >= settings.IMDB_TITLE_MINIMUM_VOTES
 
 '''
 Parse current dataset and refresh database with current data.
@@ -77,7 +77,7 @@ Update entries for existing movies, insert new records if they don't already exi
 def upsert():
     datasets = open_datasets()
     added, modified = 0, 0
-    for x in range(100):               
+    while added < 100:               
         current_values = {}
         try: 
             for ds in datasets:
@@ -109,8 +109,8 @@ def upsert():
 Delete all dataset files that exist on the server
 '''
 def cleanup_dataset_files(): 
-    for dataset in settings.IMDB_DATASETS:
-        ds_path = os.path.join(settings.MEDIA_ROOT, 'datasets', dataset['internal_filename'])
+    for ds_info in settings.IMDB_DATASETS:
+        ds_path = os.path.join(settings.MEDIA_ROOT, 'datasets', ds_info['internal_filename'])
         if os.path.exists(ds_path):
             os.remove(ds_path)
 
@@ -121,9 +121,10 @@ Custom manage.py command entry point
 '''
 class Command(BaseCommand): 
     def handle(self, *args, **options):
+        print("Starting IMDb data integration.")
+
         start = time.perf_counter()
-        for ds_info in settings.IMDB_DATASETS: 
-            download_current_dataset(ds_info['external_filename'])
+        download_current_datasets()
         finish = time.perf_counter()
         print(f"Successfully dowloaded IMDb datatsets in {str(datetime.timedelta(seconds=finish-start))}.")
 
@@ -133,6 +134,7 @@ class Command(BaseCommand):
         print(f"{added} records created, {modified} records updated in {str(datetime.timedelta(seconds=finish-start))}.")
 
         cleanup_dataset_files()
+        print("Successfully completed IMDb data integration.")
 
 
 
