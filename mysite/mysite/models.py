@@ -11,7 +11,7 @@ class ImdbTitle(models.Model):
     unique_id = models.CharField(max_length=10)
     title_type = models.CharField(max_length=10)
     title = models.CharField(max_length=200)
-    release_year = models.IntegerField()
+    release_year = models.IntegerField(null=True)
     rating = models.DecimalField(decimal_places=1, max_digits=3)
     votes = models.IntegerField()
 

@@ -65,10 +65,24 @@ def close_datasets(datasets):
 
 
 '''
+Prevent data errors/make sure types are consistent for the current row. 
+Check here are added as needed. 
+'''
+def sanitize(row):
+    try:
+        int(row['release_year'])
+    except ValueError: 
+        row['release_year'] = None
+    return row
+
+
+'''
 Validate/filter data before entering into the database.
 '''
 def validate(row):
-    return row['title_type'] in settings.IMDB_TITLE_TYPES and int(row['votes']) >= settings.IMDB_TITLE_MINIMUM_VOTES
+    valid = row['title_type'] in settings.IMDB_TITLE_TYPES and int(row['votes']) >= settings.IMDB_TITLE_MINIMUM_VOTES
+    return valid 
+
 
 '''
 Parse current dataset and refresh database with current data.
@@ -88,11 +102,11 @@ def upsert():
            break
 
         if validate(current_values):
-            title, created = ImdbTitle.objects.update_or_create(
+            current_values = sanitize(current_values)
+            object, created = ImdbTitle.objects.update_or_create(
                 unique_id=current_values['unique_id'], 
                 defaults=current_values
             )
-            title.save()
             if created:
                 added += 1
             else:
@@ -120,7 +134,7 @@ Custom manage.py command entry point
 '''
 class Command(BaseCommand): 
     def handle(self, *args, **options):
-        time_elapsed = lambda start: str(datetime.timedelta(seconds=time.perf_counter() - start))
+        time_elapsed = lambda t: str(datetime.timedelta(seconds=round(time.perf_counter() - t)))
         print("Starting IMDb data integration.", flush=True)
 
         start = time.perf_counter()
@@ -129,11 +143,10 @@ class Command(BaseCommand):
 
         start = time.perf_counter()
         added, modified = upsert()
-        print(f"{added} records created, {modified} records updated in {time_elapsed(start)}.", flush=True)
+        print(f"{added} records created, {modified} records updated in {time_elapsed(start)}.")
 
         cleanup_dataset_files()
 
-        print("Successfully completed IMDb data integration.")
 
 
 
