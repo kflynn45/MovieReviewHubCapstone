@@ -42,22 +42,12 @@ function createMovieCard(movie, element){
       // Create the title element and set the text content
       const $title = $("<p>").text(movie.title);
 
+      //Create arrow icon
+      const $arrow = $("<span>").addClass("material-symbols-outlined").text("arrow_circle_right");
+
       // Append the image and title elements to the poster div
-      $poster.append($image, $title);
+      $poster.append($image, $title, $arrow);
 
       // Append the poster div to the grid container
       $(element).append($poster);
 }
-
-// function createMovieCard(movie){
-//       let newColumn = document.createElement("col");
-
-//       let movieCard = document.createElement("div");
-//       newColumn.appendChild(movieCard);
-
-//       let poster = document.createElement("img");
-//       poster.setAttribute("src", "https://image.tmdb.org/t/p/w500"+movie.poster_path);
-//       movieCard.appendChild(poster);
-
-//       document.getElementById("movieList").appendChild(movieCard);
-// }
