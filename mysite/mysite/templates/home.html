@@ -1,10 +1,21 @@
+{% load compress %}
 <!DOCTYPE html>
 <html>
+    {% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="/mysite/static/styles/home.scss">
+    {% endcompress %}
     <head>
         {% include "header.html" %}
+        
     </head>
     <body>
-        <h1>Hello, movie fans</h1> 
+        <h1>Movie Review Hub</h1> 
+        <form id="searchBar">
+            <input></input>
+            <button>Search</button>
+        </form>
+        <h2>Popular Now</h2>
+        <table id="movieList"></table>
         <script src="/mysite/static/scripts/home.js"></script>
     </body>
 </html>
