@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mysite',
     'compressor'
 ]
 
@@ -131,9 +132,11 @@ STATICFILES_FINDERS = [
     'compressor.finders.CompressorFinder'
 ]
 
+# Media (Default file save location)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mysite', 'media')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
@@ -142,3 +145,23 @@ COMPRESS_ROOT = os.path.join(BASE_DIR, 'mysite', 'static', 'styles')
 COMPRESS_PRECOMPILERS = [
     ('text/x-scss', 'django_libsass.SassCompiler')
 ]
+
+# IMDb settings
+IMDB_BASE_URL = 'https://datasets.imdbws.com/'
+IMDB_TITLE_TYPES = ['movie', 'tvSeries']
+IMDB_TITLE_MINIMUM_VOTES = 1000             # Added to try to filter more obscure results
+IMDB_DATASETS = [
+    {
+        'external_filename': 'title.basics.tsv.gz',
+        'internal_filename': 'title_basics.tsv',
+        'tsv_fields': ['tconst', 'titleType', 'primaryTitle', 'startYear'],
+        'db_fields': ['unique_id', 'title_type', 'title', 'release_year']
+    },
+    {
+        'external_filename': 'title.ratings.tsv.gz',
+        'internal_filename': 'title_ratings.tsv', 
+        'tsv_fields': ['tconst', 'averageRating', 'numVotes'],
+        'db_fields': ['unique_id', 'rating', 'votes']
+    }
+]
+    
