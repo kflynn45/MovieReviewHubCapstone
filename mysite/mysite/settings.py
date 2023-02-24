@@ -146,22 +146,17 @@ COMPRESS_PRECOMPILERS = [
     ('text/x-scss', 'django_libsass.SassCompiler')
 ]
 
+# The Movie DB settings
+TMDB_API_KEY = 'f670b8f2faa8acefcdb8aa11655d2659'
+TMDB_IMAGE_URL = 'https://image.tmdb.org/t/p/w500'
+TMDB_GET_MOVIE_URL = 'https://api.themoviedb.org/3/movie/'
+
 # IMDb settings
-IMDB_BASE_URL = 'https://datasets.imdbws.com/'
-IMDB_TITLE_TYPES = ['movie', 'tvSeries']
-IMDB_TITLE_MINIMUM_VOTES = 1000             # Added to try to filter more obscure results
-IMDB_DATASETS = [
-    {
-        'external_filename': 'title.basics.tsv.gz',
-        'internal_filename': 'title_basics.tsv',
-        'tsv_fields': ['tconst', 'titleType', 'primaryTitle', 'startYear'],
-        'db_fields': ['unique_id', 'title_type', 'title', 'release_year']
-    },
-    {
-        'external_filename': 'title.ratings.tsv.gz',
-        'internal_filename': 'title_ratings.tsv', 
-        'tsv_fields': ['tconst', 'averageRating', 'numVotes'],
-        'db_fields': ['unique_id', 'rating', 'votes']
-    }
-]
+IMDB_DATASET_ROOT = os.path.join(MEDIA_ROOT, 'datasets')
+IMDB_DATASET_URL = 'https://datasets.imdbws.com/title.ratings.tsv.gz'
+IMDB_DATASET = {
+    'filename': 'imdb_ratings.tsv', 
+    'tsv_fields': ['tconst', 'averageRating', 'numVotes'],
+    'db_fields': ['unique_id', 'rating', 'votes']
+}
     

@@ -7,13 +7,10 @@ This file contains the data models for this project.
 
 from django.db import models
 
-class ImdbTitle(models.Model): 
+class ImdbRating(models.Model): 
     unique_id = models.CharField(max_length=10)
-    title_type = models.CharField(max_length=10)
-    title = models.CharField(max_length=200)
-    release_year = models.IntegerField(null=True)
-    rating = models.DecimalField(decimal_places=1, max_digits=3)
-    votes = models.IntegerField()
+    rating = models.DecimalField(decimal_places=1, max_digits=3, null=True, blank=True)
+    votes = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.title} | {self.release_year}"
+        return f"{self.unique_id} | {self.rating}"

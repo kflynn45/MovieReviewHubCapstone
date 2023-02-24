@@ -37,7 +37,7 @@ function createMovieCard(movie, element){
       const $poster = $("<td>").addClass("movieList-item").data("title", movie.title);
 
       // Create the image element and set the src and alt attributes
-      const $image = $("<img>").attr("src", "https://image.tmdb.org/t/p/w500"+movie.poster_path).attr("alt", movie.title);
+      const $image = $("<img>").attr("src", "https://image.tmdb.org/t/p/w500"+movie.poster_path).attr("alt", movie.title).attr("onclick", "viewDetailsPage("+movie.id+")");
 
       // Create the title element and set the text content
       const $title = $("<p>").text(movie.title);
@@ -50,4 +50,8 @@ function createMovieCard(movie, element){
 
       // Append the poster div to the grid container
       $(element).append($poster);
+}
+
+function viewDetailsPage(movieId) {
+      window.location += `titles/${movieId}`
 }

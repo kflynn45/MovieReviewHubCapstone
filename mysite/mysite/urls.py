@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from mysite.views.home import Home
+from mysite.views.title_details import TitleDetails
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', Home.as_view())
+    path('', Home.as_view()),
+    path('titles/<title_id>', TitleDetails.as_view())
 ]
