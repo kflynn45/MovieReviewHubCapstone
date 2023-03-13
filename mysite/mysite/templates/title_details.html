@@ -9,11 +9,21 @@
         {% endcompress %}
     </head>
     <body>
-        {% if title_info.backdrop %}
-            <img id="title-backdrop" src="{{ title_info.backdrop }}">
-        {% endif %}
-        <h1>{{ title_info.title }}</h1>
-        <img src="{{ title_info.poster }}">
-        <p>imdb rating: {{ title_info.imdb_rating }}</p>
+        <!-- <img id="backdrop" src="{% static 'movie-seats-pic.jpeg' %}"> -->
+        <img id="backdrop" src="{{ title_info.backdrop }}">
+        <div class="container">
+            <img class="poster" src="{{ title_info.poster }}">
+            <div class="text-area">
+                <h2>{{ title_info.title }}</h2>
+                <p class="release-date">Released: {{title_info.release_date}}</p>
+                <div class="ratings">
+                    <p id="weighted-rating"></p>
+                    <p id="imdb-rating">imdb rating: {{ title_info.imdb_rating }}</p>
+                    <p id="movie-db-rating">{{title_info.movie_db_rating}}</p>
+                    <p id="movie-db-rating-count">{{title_info.movie_db_rating_count}}</p>
+                </div>
+                <p class="description">{{title_info.description}}</p>
+            </div>
+        </div>
     </body>
 </html>

@@ -42,4 +42,7 @@ class TitleDetailInfo:
         self.poster = settings.TMDB_IMAGE_URL + title['poster_path']
         self.release_date = title['release_date']
         self.movie_db_rating = title['vote_average']
+        self.movie_db_rating_count = title['vote_count']
         self.imdb_rating = self.get_imdb_score(title['imdb_id'])
+        self.genres = title['genres']
+        self.release_date = title['release_date']

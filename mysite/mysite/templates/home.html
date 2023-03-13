@@ -1,21 +1,24 @@
-{% load compress %}
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
+{% load compress %}
 <html>
     <head>
         {% include "header.html" %}
         {% compress css %}
             <link rel="stylesheet" type="text/x-scss" href="{% static 'home.scss' %}">
         {% endcompress %}
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     </head>
     <body>
-        <h1>Movie Review Hub</h1> 
+        <h2>Welcome to a new way to get movie reviews</h2>
         <form id="searchBar">
-            <input></input>
-            <button>Search</button>
+            <input placeholder="Search..."></input>
         </form>
-        <h2>Popular Now</h2>
+        <div id="section-titles">
+            <h3 id="popular-now">Popular Now</h3>
+            <!-- <h3 id="now-playing">Now Playing</h3>
+            <h3 id="upcoming">Upcoming</h3> -->
+        </div>
+        
         <table id="movieList"></table>
         <script src="{% static 'home.js' %}"></script>
     </body>

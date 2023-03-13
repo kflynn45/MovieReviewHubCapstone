@@ -9,17 +9,20 @@
 "use strict";
 
 $(document).ready(function(){
-
       const options = {
             "async": true,
             "crossDomain": true,
             "url": "https://api.themoviedb.org/3/discover/movie?api_key=f670b8f2faa8acefcdb8aa11655d2659&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_keywords=Jumanji&with_watch_monetization_types=flatrate",
             "method": "GET"
       };
-      
-      $.ajax(options).done(function (response) {
-            console.log(response);
-      
+    
+      makeApiCall(options);
+});
+
+function makeApiCall(params){
+      $("#movieList").empty;
+
+      $.ajax(params).done(function (response) {
             let element = $("#movieList");
             for(let i = 0; i < response.results.length; i++){
                   if(i % 5 == 0){
@@ -27,17 +30,15 @@ $(document).ready(function(){
                         $("#movieList").append(element);
                   }
                   createMovieCard(response.results[i], element);
-
             }
       });
-    
-    });
+}
 
 function createMovieCard(movie, element){
-      const $poster = $("<td>").addClass("movieList-item").data("title", movie.title);
+      const $poster = $("<td>").addClass("movieList-item").data("title", movie.title).attr("onclick", "viewDetailsPage("+movie.id+")");
 
       // Create the image element and set the src and alt attributes
-      const $image = $("<img>").attr("src", "https://image.tmdb.org/t/p/w500"+movie.poster_path).attr("alt", movie.title).attr("onclick", "viewDetailsPage("+movie.id+")");
+      const $image = $("<img>").attr("src", "https://image.tmdb.org/t/p/w500"+movie.poster_path).attr("alt", movie.title);
 
       // Create the title element and set the text content
       const $title = $("<p>").text(movie.title);
@@ -55,3 +56,32 @@ function createMovieCard(movie, element){
 function viewDetailsPage(movieId) {
       window.location += `titles/${movieId}`
 }
+
+// Additional browsing feature testing
+
+// const optionsPopular = {
+//       "async": true,
+//       "crossDomain": true,
+//       "url": "https://api.themoviedb.org/3/discover/movie?api_key=f670b8f2faa8acefcdb8aa11655d2659&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_keywords=Jumanji&with_watch_monetization_types=flatrate",
+//       "method": "GET"
+// };
+
+// const optionsNowPlaying = {
+//       "async": true,
+//       "crossDomain": true,
+//       "url": "https://api.themoviedb.org/3/movie/now_playing?api_key=f670b8f2faa8acefcdb8aa11655d2659&language=en-US&page=1",
+//       "method": "GET"
+// };
+
+// const optionsUpcoming = {
+//       "async": true,
+//       "crossDomain": true,
+//       "url": "https://api.themoviedb.org/3/movie/upcoming?api_key=f670b8f2faa8acefcdb8aa11655d2659&language=en-US&page=1",
+//       "method": "GET"
+// };
+
+// $("#popular-now").attr("onclick", makeApiCall(optionsPopular));
+
+// $("#now-playing").attr("onclick", makeApiCall(optionsNowPlaying));
+
+// $("#upcoming").attr("onclick", makeApiCall(optionsUpcoming));
