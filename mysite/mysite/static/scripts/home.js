@@ -40,7 +40,6 @@ $(document).ready(async function(){
 
 async function makeApiCall(options){
       var response = await $.ajax(options);
-      console.log(response.results);
       return await response.results;
 }
 
