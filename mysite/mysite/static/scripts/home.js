@@ -8,30 +8,61 @@
 
 "use strict";
 
-$(document).ready(function(){
-      const options = {
-            "async": true,
-            "crossDomain": true,
-            "url": "https://api.themoviedb.org/3/discover/movie?api_key=f670b8f2faa8acefcdb8aa11655d2659&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_keywords=Jumanji&with_watch_monetization_types=flatrate",
-            "method": "GET"
-      };
-    
-      makeApiCall(options);
+var popularMovies = [];
+var nowPlayingMovies = [];
+var upcomingMovies = [];
+
+const optionsPopular = {
+      "async": true,
+      "crossDomain": true,
+      "url": "https://api.themoviedb.org/3/discover/movie?api_key=f670b8f2faa8acefcdb8aa11655d2659&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_keywords=Jumanji&with_watch_monetization_types=flatrate",
+      "method": "GET"
+};
+
+const optionsNowPlaying = {
+      "async": true,
+      "crossDomain": true,
+      "url": "https://api.themoviedb.org/3/movie/now_playing?api_key=f670b8f2faa8acefcdb8aa11655d2659&language=en-US&page=1",
+      "method": "GET"
+};
+
+const optionsUpcoming = {
+      "async": true,
+      "crossDomain": true,
+      "url": "https://api.themoviedb.org/3/movie/upcoming?api_key=f670b8f2faa8acefcdb8aa11655d2659&language=en-US&page=1",
+      "method": "GET"
+};
+
+$(document).ready(async function(){
+      popularMovies = await makeApiCall(optionsPopular);
+      createMovieList(popularMovies);
 });
 
-function makeApiCall(params){
-      $("#movieList").empty;
+async function makeApiCall(options){
+      var response = await $.ajax(options);
+      console.log(response.results);
+      return await response.results;
+}
 
-      $.ajax(params).done(function (response) {
-            let element = $("#movieList");
-            for(let i = 0; i < response.results.length; i++){
-                  if(i % 5 == 0){
-                        element = $("<tr>");
-                        $("#movieList").append(element);
-                  }
-                  createMovieCard(response.results[i], element);
+async function switchDisplayedMovies(options, movies){
+      if(movies.length === 0)
+            movies = await makeApiCall(options);
+
+      createMovieList(movies);
+
+      return movies;
+}
+
+function createMovieList(movies){
+      $("#movieList").empty();
+      let element = $("#movieList");
+      for(let i = 0; i < movies.length; i++){
+            if(i % 5 == 0){
+                  element = $("<tr>");
+                  $("#movieList").append(element);
             }
-      });
+            createMovieCard(movies[i], element);
+      }
 }
 
 function createMovieCard(movie, element){
@@ -57,31 +88,8 @@ function viewDetailsPage(movieId) {
       window.location += `titles/${movieId}`
 }
 
-// Additional browsing feature testing
+$("#popular-now").click(async function(){ popularMovies = await switchDisplayedMovies(optionsPopular, popularMovies)});
 
-// const optionsPopular = {
-//       "async": true,
-//       "crossDomain": true,
-//       "url": "https://api.themoviedb.org/3/discover/movie?api_key=f670b8f2faa8acefcdb8aa11655d2659&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_keywords=Jumanji&with_watch_monetization_types=flatrate",
-//       "method": "GET"
-// };
+$("#now-playing").click(async function(){ nowPlayingMovies = await switchDisplayedMovies(optionsNowPlaying, nowPlayingMovies) });
 
-// const optionsNowPlaying = {
-//       "async": true,
-//       "crossDomain": true,
-//       "url": "https://api.themoviedb.org/3/movie/now_playing?api_key=f670b8f2faa8acefcdb8aa11655d2659&language=en-US&page=1",
-//       "method": "GET"
-// };
-
-// const optionsUpcoming = {
-//       "async": true,
-//       "crossDomain": true,
-//       "url": "https://api.themoviedb.org/3/movie/upcoming?api_key=f670b8f2faa8acefcdb8aa11655d2659&language=en-US&page=1",
-//       "method": "GET"
-// };
-
-// $("#popular-now").attr("onclick", makeApiCall(optionsPopular));
-
-// $("#now-playing").attr("onclick", makeApiCall(optionsNowPlaying));
-
-// $("#upcoming").attr("onclick", makeApiCall(optionsUpcoming));
+$("#upcoming").click(async function(){ upcomingMovies = await switchDisplayedMovies(optionsUpcoming, upcomingMovies) });
