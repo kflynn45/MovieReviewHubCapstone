@@ -11,19 +11,28 @@
     <body>
         <!-- <img id="backdrop" src="{% static 'movie-seats-pic.jpeg' %}"> -->
         <img id="backdrop" src="{{ title_info.backdrop }}">
+
         <div class="container">
-            <img class="poster" src="{{ title_info.poster }}">
-            <div class="text-area">
-                <h2>{{ title_info.title }}</h2>
-                <p class="release-date">Released: {{title_info.release_date}}</p>
+            <img class = poster src="{{ title_info.poster }}">
+            <div class ="rating-area">
+                <h2><u>Rating Information</u></h2>
                 <div class="ratings">
                     <p id="weighted-rating"></p>
-                    <p id="imdb-rating">imdb rating: {{ title_info.imdb_rating }}</p>
-                    <p id="movie-db-rating">{{title_info.movie_db_rating}}</p>
-                    <p id="movie-db-rating-count">{{title_info.movie_db_rating_count}}</p>
                 </div>
-                <p class="description">{{title_info.description}}</p>
+
+                <p id="imdb-rating"> <b>IMDB Rating:</b> {{ title_info.imdb_rating }}</p>
+                <p id="movie-db-rating"><b>IMDB Score:</b> {{title_info.movie_db_rating}}</p>
+                <p id="movie-db-rating-count"><b>Number of Ratings:</b> {{title_info.movie_db_rating_count}}</p>
+
             </div>
+            <div class="text-area">
+                <h2><u>Movie Information</u></h2>
+                <h2>{{ title_info.title }}</h2>
+                <p class="release-date"><b>Released:</b> {{title_info.release_date}}</p>
+                <p class="genres"> <b>Genre(s):</b> {{title_info.genres}}</p>
+                <p class="description"> <b>Description:</b> <br>{{title_info.description}}</p>
+            </div>
+
         </div>
     </body>
 </html>

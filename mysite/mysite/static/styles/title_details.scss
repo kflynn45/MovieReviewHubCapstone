@@ -15,19 +15,19 @@ body {
 
 .container {
     margin-top: 10%;
-    margin-left: 3%;
-    margin-right: 3%;
-    display: grid;
+    margin-left: 2%;
+    margin-right: 2%;
+    display: inline-flex;
 
-    grid-template-columns: .8fr 3.2fr;
+    grid-template-columns: 0.8fr 3.2fr;
 
-    grid-template-rows: 1fr;
+    grid-template-rows: 2.0fr;
 
     //border: 2px solid blue;
 }
 
 .poster {
-    width: 100%;
+    width: 20%;
     text-align: center;
     height: auto;
 }
@@ -48,15 +48,37 @@ body {
         margin-left: 3%;
     }
 
-    p{
+    p {
         margin-left: 3%;
         margin-right: 5%;
-        display: inline-block;
+        display: inline-grid;
+    }
+}
+.rating-area {
+    margin-left: 2%;
+    backdrop-filter: blur(20px);
+    border: 2px solid white;
+    border-radius: 10px;
+    color: white;
+
+    h2 {
+        //border: 2px solid red;
+        vertical-align: top;
+        text-align: left;
+        color: white;
+        font-size: 2em;
+        margin-left: 3%;
+    }
+
+    p {
+        margin-left: 3%;
+        margin-right: 5%;
+        display: inline-grid;
     }
 }
 
 .ratings p{
     margin-left: 3%;
     margin-right: 5%;
-    display: inline-block;
+    display: inline-grid;
 }
