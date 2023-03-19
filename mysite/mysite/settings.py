@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -159,4 +160,13 @@ IMDB_DATASET = {
     'tsv_fields': ['tconst', 'averageRating', 'numVotes'],
     'db_fields': ['unique_id', 'rating', 'votes']
 }
+
+# ROTTEN_TOMATO_URL = ''
+ROTTEN_TOMATO_GET_MOVIE_URL = 'http://www.omdbapi.com/'
+ROTTEN_TOMATO_API_KEY = '18eaeb4f'
+
+# IMBD_GET_MOVIE_URL = ''
+# IMBD_GET_MOVIE_URL = ''
+# IMDB_API_KEY = ''
+
     
