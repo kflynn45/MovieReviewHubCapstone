@@ -1,4 +1,4 @@
 from django.contrib import admin
-from mysite.models import ImdbTitle
+from mysite.models import ImdbRating
 
-admin.site.register(ImdbTitle)
+admin.site.register(ImdbRating)
