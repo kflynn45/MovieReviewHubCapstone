@@ -3,9 +3,10 @@
 {% load compress %}
 <html>
     <head>
+        <title>{{ title_info.title }}</title>
         {% include "header.html" %}
         {% compress css %}
-            <link rel="stylesheet" type="text/x-scss" href="{% static 'title_details.scss' %}">
+            <link rel="stylesheet" type="text/x-scss" href="{% static 'title-details.scss' %}">
         {% endcompress %}
     </head>
     <body>

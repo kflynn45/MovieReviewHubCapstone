@@ -3,6 +3,7 @@
 {% load compress %}
 <html>
     <head>
+        <title>Movie Review Hub</title>
         {% include "header.html" %}
         {% compress css %}
             <link rel="stylesheet" type="text/x-scss" href="{% static 'home.scss' %}">
@@ -11,15 +12,15 @@
     <body>
         {% include "banner.html" %}
         <h2>Welcome to a new way to get movie reviews</h2>
-        <form id="searchBar" action="search" method="post" name="search-form">
+        <form id="searchBar" action="search" method="post">
             {% csrf_token %}
-            {{ search_form }}
+            {{ search_bar }}
         </form>
         <div id="section-titles">
-            <a href="popular"><h3 id="popular-now">Popular Now</h3></a>
-            <a href="now_playing"><h3 id="now-playing">Now Playing</h3></a>
+            <a href="popular-now"><h3 id="popular-now">Popular Now</h3></a>
+            <a href="now-playing"><h3 id="now-playing">Now Playing</h3></a>
             <a href="upcoming"><h3 id="upcoming">Upcoming</h3></a>
         </div>
-        {% include "grid_display.html" %}
+        {% include "grid-display.html" %}
     </body>
 </html>

@@ -27,7 +27,7 @@ class Home(View):
             pass #TODO error page
        
         return render(request, 'home.html', {
-            'search_form': SearchForm(), 
+            'search_bar': SearchForm(), 
             'titles': get_title_displays(response.json()) 
         })
     
@@ -48,7 +48,7 @@ class Home(View):
             if response.status_code != 200: 
                 pass #TODO error page
             return render(request, 'home.html', {
-                'search_form': form, 
+                'search_bar': form, 
                 'titles': get_title_displays(response.json()), 
                 'search': True 
             })

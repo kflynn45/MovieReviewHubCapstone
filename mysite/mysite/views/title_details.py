@@ -24,7 +24,7 @@ class TitleDetails(View):
         if response.status_code != 200:
             pass #TODO: implement error landing page
 
-        return render(request, 'title_details.html', {
+        return render(request, 'title-details.html', {
             'title_info': TitleDetailInfo(**response.json())
         })
 
