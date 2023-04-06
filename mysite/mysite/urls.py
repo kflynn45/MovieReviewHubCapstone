@@ -20,6 +20,7 @@ from mysite.views.title_details import TitleDetails
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', Home.as_view()),
+    path('', Home.as_view(), {'action': 'popular'}, name='index'),
+    path('<action>', Home.as_view()), 
     path('titles/<title_id>', TitleDetails.as_view())
 ]

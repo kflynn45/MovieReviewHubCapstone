@@ -9,17 +9,17 @@
         {% endcompress %}
     </head>
     <body>
+        {% include "banner.html" %}
         <h2>Welcome to a new way to get movie reviews</h2>
-        <form id="searchBar">
-            <input placeholder="Search..."></input>
+        <form id="searchBar" action="search" method="post" name="search-form">
+            {% csrf_token %}
+            {{ search_form }}
         </form>
         <div id="section-titles">
-            <h3 id="popular-now">Popular Now</h3>
-            <h3 id="now-playing">Now Playing</h3>
-            <h3 id="upcoming">Upcoming</h3>
+            <a href="popular"><h3 id="popular-now">Popular Now</h3></a>
+            <a href="now_playing"><h3 id="now-playing">Now Playing</h3></a>
+            <a href="upcoming"><h3 id="upcoming">Upcoming</h3></a>
         </div>
-        
-        <table id="movieList"></table>
-        <script src="{% static 'home.js' %}"></script>
+        {% include "grid_display.html" %}
     </body>
 </html>

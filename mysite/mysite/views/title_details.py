@@ -17,8 +17,11 @@ class TitleDetails(View):
     Process get requests for the title details page.
     """
     def get(self, request, title_id):
-        response = requests.get(settings.TMDB_GET_MOVIE_URL + f'{title_id}?api_key={settings.TMDB_API_KEY}&language=en_US',verify=False)
-        if(response.status_code != 200):
+        response = requests.get(settings.TMDB_GET_MOVIE_URL.format(
+            apikey=settings.TMDB_API_KEY, 
+            movieid=title_id
+        ))
+        if response.status_code != 200:
             pass #TODO: implement error landing page
 
         return render(request, 'title_details.html', {
@@ -31,8 +34,8 @@ class TitleDetailInfo:
     def __init__(self, **title):
         self.title = title['title']
         self.description = title['overview']
-        self.backdrop = settings.TMDB_IMAGE_URL + title['backdrop_path']
-        self.poster = settings.TMDB_IMAGE_URL + title['poster_path']
+        self.backdrop = None if not title['backdrop_path'] else settings.TMDB_IMAGE_URL + title['backdrop_path']
+        self.poster = None if not title['poster_path'] else settings.TMDB_IMAGE_URL + title['poster_path']
         self.release_date = title['release_date']
         self.movie_db_rating = title['vote_average']
         self.movie_db_rating_count = title['vote_count']

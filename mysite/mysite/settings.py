@@ -125,7 +125,8 @@ STATIC_URL = 'mysite/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'mysite', 'static'),
     os.path.join(BASE_DIR, 'mysite', 'static', 'scripts'),
-    os.path.join(BASE_DIR, 'mysite', 'static', 'styles')
+    os.path.join(BASE_DIR, 'mysite', 'static', 'styles'),
+    os.path.join(BASE_DIR, 'mysite', 'static', 'images')
 ]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -150,7 +151,15 @@ COMPRESS_PRECOMPILERS = [
 # The Movie DB settings
 TMDB_API_KEY = 'f670b8f2faa8acefcdb8aa11655d2659'
 TMDB_IMAGE_URL = 'https://image.tmdb.org/t/p/w500'
-TMDB_GET_MOVIE_URL = 'https://api.themoviedb.org/3/movie/'
+TMDB_GET_MOVIE_URL = 'https://api.themoviedb.org/3/movie/{movieid}?api_key={apikey}&language=en_US'
+TMDB_SEARCH_MOVIES_URL = 'https://api.themoviedb.org/3/search/movie?api_key={apikey}&query={query}&include_adult=true'
+TMDB_MOVIE_GRID_URLS = {
+    'popular': 'https://api.themoviedb.org/3/movie/popular?api_key={apikey}&language=en-US&page=1', 
+    'now_playing': 'https://api.themoviedb.org/3/movie/now_playing?api_key={apikey}&language=en-US&page=1', 
+    'upcoming': 'https://api.themoviedb.org/3/movie/upcoming?api_key={apikey}&language=en-US&page=1',
+}
+
+
 
 # IMDb settings
 IMDB_DATASET_ROOT = os.path.join(MEDIA_ROOT, 'datasets')

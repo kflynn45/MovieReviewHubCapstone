@@ -24,11 +24,15 @@ h2 {
             border-radius: 25px;
             font-size: 16px;
             background-color: white;
-            background-image: url('search-icon.png');
+            background-image: url('icons/search-icon.png');
             background-size: 22px;
             background-position: 10px 10px; 
             background-repeat: no-repeat;
             padding: 12px 20px 12px 40px;
+      }
+
+      label {
+            display: none;
       }
 }
 

@@ -14,20 +14,5 @@
 
 <!-- Scripts -->
 <script type="text/javascript" src="{% static 'jquery-3.6.3.min.js' %}"></script>
-<script>
-    function returnToHomePage(){
-        console.log(window.location);
-        window.location = '/';
-        return false;
-    }
-</script>
 
-<html>
-    <div id="top-banner">
-        <span id="home-icon" class="material-symbols-outlined" onClick="returnToHomePage()">
-            home
-        </span>
-        <h1>Movie Review Hub</h1>
-    </div>
-</html>
 

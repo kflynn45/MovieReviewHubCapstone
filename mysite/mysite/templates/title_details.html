@@ -9,9 +9,8 @@
         {% endcompress %}
     </head>
     <body>
-        <!-- <img id="backdrop" src="{% static 'movie-seats-pic.jpeg' %}"> -->
+        {% include "banner.html" %}
         <img id="backdrop" src="{{ title_info.backdrop }}">
-
         <div class="container">
             <img class = poster src="{{ title_info.poster }}">
 
