@@ -175,7 +175,7 @@ TMDB_MOVIE_GRID_URLS = {
     'upcoming': 'https://api.themoviedb.org/3/movie/upcoming?api_key={apikey}&language=en-US&page=1',
 }
 DEFAULT_HOMEPAGE_DISPLAY = 'popular-now'     # must be one of the movie grid url options. 
-
+DEFAULT_TITLES_PER_ROW = 5 
 
 # IMDb settings
 IMDB_DATASET_ROOT = os.path.join(MEDIA_ROOT, 'datasets')

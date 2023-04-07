@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect
 from django.http import Http404
 from mysite import settings
 from mysite.forms import SearchForm
+from mysite.models import TitleGridSetting
 import requests
 
 
@@ -70,7 +71,12 @@ class TitleDisplay:
 Package JSON response data into TitleDisplay objects, 4 per row for the template
 """
 def get_title_displays(response):
+    try: 
+        setting = TitleGridSetting.objects.get(setting='titles per row')
+        step = int(setting.value)
+    except: 
+        step = settings.DEFAULT_TITLES_PER_ROW
     displays = list(map(TitleDisplay, response['results']))
-    return [displays[i:i+4] for i in range(0, len(displays), 4)]
+    return [displays[i:i+step] for i in range(0, len(displays), step)]
 
         

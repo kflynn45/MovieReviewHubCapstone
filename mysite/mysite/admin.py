@@ -1,4 +1,7 @@
 from django.contrib import admin
-from mysite.models import ImdbRating
+from mysite.models import *
 
-admin.site.register(ImdbRating)
+admin.site.register([
+    ImdbRating, 
+    TitleGridSetting
+])
