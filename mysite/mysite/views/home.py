@@ -7,6 +7,7 @@ This file contains the server side portion of the homepage.
 
 from django.views import View
 from django.shortcuts import render, redirect
+from django.http import Http404
 from mysite import settings
 from mysite.forms import SearchForm
 import requests
@@ -21,10 +22,10 @@ class Home(View):
         try:
             url = settings.TMDB_MOVIE_GRID_URLS[action]
         except KeyError: 
-            pass #TODO error page  
+            raise Http404()
         response = requests.get(url.format(apikey=settings.TMDB_API_KEY))
         if response.status_code != 200: 
-            pass #TODO error page
+            return redirect('error/2')
        
         return render(request, 'home.html', {
             'search_bar': SearchForm(), 
@@ -37,7 +38,7 @@ class Home(View):
     """
     def post(self, request, action): 
         if action != 'search': 
-            pass #TODO error page
+            raise Http404()
         form = SearchForm(request.POST)
         if form.is_valid(): 
             url = settings.TMDB_SEARCH_MOVIES_URL
@@ -46,14 +47,14 @@ class Home(View):
                 query=form.cleaned_data['query']
             ))
             if response.status_code != 200: 
-                pass #TODO error page
+                return redirect('error/2')
             return render(request, 'home.html', {
                 'search_bar': form, 
                 'titles': get_title_displays(response.json()), 
                 'search': True 
             })
         else:
-            pass #TODO error page
+            return redirect('error/4')
             
 
 

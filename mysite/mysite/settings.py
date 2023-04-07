@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-5*&*4cvn3^-j7von=ff*1op&7er=q#h!72hgtdacpur#fk%w6n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'moviereviewhub.com']
 
 
 # Application definition
@@ -147,6 +147,21 @@ COMPRESS_ROOT = os.path.join(BASE_DIR, 'mysite', 'static', 'styles')
 COMPRESS_PRECOMPILERS = [
     ('text/x-scss', 'django_libsass.SassCompiler')
 ]
+
+
+# Settings for custom error handling 
+ERROR_MESSAGES = {
+    '1': 'The page could not be found. Please make sure your URL is correct.', 
+    '2': 'Issue fetching third party content. Please check back again later.',
+    '3': 'An internal error has occurred, or the page is invalid.',
+    '4': 'There was an issue executing your requested search. Please try again.'
+}
+ERROR_RESPONSE_CODES = {
+    '1': 404, 
+    '2': 503, 
+    '3': 500, 
+    '4': 400
+}
 
 
 # The Movie DB settings

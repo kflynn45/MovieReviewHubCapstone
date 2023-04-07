@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load static %}
+{% load compress %}
+<html>
+    <head>
+        <title>Oops!</title>
+        {% include "header.html" %}
+        {% compress css %}
+            <link rel="stylesheet" type="text/x-scss" href="{% static 'error.scss' %}">
+        {% endcompress %}
+    </head>
+    <body>
+        {% include "banner.html" %}
+        <h1 class='error-message'>Looks like there was a problem loading the page:</h1>
+        <br>
+        <p class="error-message">{{ message }}</p>
+        <img class="error-message" src="{% static 'sad-error.png' %}"> 
+    </body>
+</html>

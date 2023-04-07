@@ -18,10 +18,16 @@ from django.urls import path
 from mysite import settings
 from mysite.views.home import Home
 from mysite.views.title_details import TitleDetails
+from mysite.views.error import render_error
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Home.as_view(), {'action': settings.DEFAULT_HOMEPAGE_DISPLAY}, name='index'),
     path('<action>', Home.as_view()), 
-    path('titles/<title_id>', TitleDetails.as_view())
+    path('titles/<title_id>', TitleDetails.as_view()), 
+    path('error/<error_number>', render_error)
 ]
+
+# Overrides for 404/500 pages (does not apply when in debug mode)
+handler404 = 'mysite.views.error.handle_404'
+handler500 = 'mysite.views.error.handle_500'
