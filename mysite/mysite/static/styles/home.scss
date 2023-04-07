@@ -13,11 +13,6 @@ h2 {
       width: 60%;
 
       input {
-            // width: 98%;
-            // height: 35px;
-            // border: 2px solid maroon;
-            // border-radius: 25px;
-            // padding: 12px 20px;
             width: 100%;
             box-sizing: border-box;
             border: 2px solid #ccc;
@@ -90,4 +85,9 @@ h3 {
       p, .material-symbols-outlined {
             opacity: 1;
       }
+}
+
+h4{
+      color: white;
+      text-align: center;
 }
