@@ -22,8 +22,6 @@ body {
     grid-template-columns: 0.8fr 3.2fr;
 
     grid-template-rows: 2.0fr;
-
-    //border: 2px solid blue;
 }
 
 .poster {
@@ -40,7 +38,6 @@ body {
     color: white;
 
     h2 {
-        //border: 2px solid red;
         vertical-align: top;
         text-align: left;
         color: white;
@@ -62,7 +59,6 @@ body {
     color: white;
 
     h2 {
-        //border: 2px solid red;
         vertical-align: top;
         text-align: left;
         color: white;
@@ -81,4 +77,9 @@ body {
     margin-left: 3%;
     margin-right: 5%;
     display: inline-grid;
+}
+
+.trailer-container{
+    text-align: center;
+    margin-top: 2em;
 }

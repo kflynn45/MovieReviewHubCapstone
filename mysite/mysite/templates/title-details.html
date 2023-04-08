@@ -20,9 +20,6 @@
                 <p class="release-date"><b>Released:</b> {{title_info.release_date}}</p>
                 <p class="genres"> <b>Genre(s):</b> {{title_info.genres}}</p>
                 <p class="description"> <b>Description:</b> <br>{{title_info.description}}</p>
-                <p class="movie-trailer"> <b>Movie Trailer:</b>
-                    <video width="500" height="400" controls="controls"
-                           src= {{title_info.movie_trailer}} ></video>
             </div>
 
             <div class ="rating-area">
@@ -34,5 +31,10 @@
                 <p id="metacritic"><b>Metacritic:</b> {{title_info.metacritic}}</p>
             </div>
         </div>
+
+        <div class="trailer-container">
+            <video controls="controls" src= {{title_info.movie_trailer}} ></video>
+        </div>
+        
     </body>
 </html>
