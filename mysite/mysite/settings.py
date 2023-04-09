@@ -190,8 +190,7 @@ IMDB_DATASET = {
 ROTTEN_TOMATO_GET_MOVIE_URL = 'http://www.omdbapi.com/'
 ROTTEN_TOMATO_API_KEY = '18eaeb4f'
 
-# IMBD_GET_MOVIE_URL = ''
-# IMBD_GET_MOVIE_URL = ''
-# IMDB_API_KEY = ''
-
+#IMDB Offical API
+IMDB_API_URL = 'https://imdb-api.com/'
+IMDB_API_KEY = 'k_tct5xoj2'
     
