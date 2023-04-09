@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-5*&*4cvn3^-j7von=ff*1op&7er=q#h!72hgtdacpur#fk%w6n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'moviereviewhub.com']
 
 
 # Application definition
@@ -125,7 +125,8 @@ STATIC_URL = 'mysite/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'mysite', 'static'),
     os.path.join(BASE_DIR, 'mysite', 'static', 'scripts'),
-    os.path.join(BASE_DIR, 'mysite', 'static', 'styles')
+    os.path.join(BASE_DIR, 'mysite', 'static', 'styles'),
+    os.path.join(BASE_DIR, 'mysite', 'static', 'images')
 ]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -147,10 +148,34 @@ COMPRESS_PRECOMPILERS = [
     ('text/x-scss', 'django_libsass.SassCompiler')
 ]
 
+
+# Settings for custom error handling 
+ERROR_MESSAGES = {
+    1: 'The page could not be found. Please make sure your URL is correct.', 
+    2: 'Issue fetching third party content. Please check back again later.',
+    3: 'An internal error has occurred, or the page is invalid.',
+    4: 'There was an issue executing your requested search. Please try again.'
+}
+ERROR_RESPONSE_CODES = {
+    1: 404, 
+    2: 503, 
+    3: 500, 
+    4: 400
+}
+
+
 # The Movie DB settings
 TMDB_API_KEY = 'f670b8f2faa8acefcdb8aa11655d2659'
 TMDB_IMAGE_URL = 'https://image.tmdb.org/t/p/w500'
-TMDB_GET_MOVIE_URL = 'https://api.themoviedb.org/3/movie/'
+TMDB_GET_MOVIE_URL = 'https://api.themoviedb.org/3/movie/{movieid}?api_key={apikey}&language=en_US'
+TMDB_SEARCH_MOVIES_URL = 'https://api.themoviedb.org/3/search/movie?api_key={apikey}&query={query}&include_adult=true'
+TMDB_MOVIE_GRID_URLS = {
+    'popular-now': 'https://api.themoviedb.org/3/movie/popular?api_key={apikey}&language=en-US&page=1', 
+    'now-playing': 'https://api.themoviedb.org/3/movie/now_playing?api_key={apikey}&language=en-US&page=1', 
+    'upcoming': 'https://api.themoviedb.org/3/movie/upcoming?api_key={apikey}&language=en-US&page=1',
+}
+DEFAULT_HOMEPAGE_DISPLAY = 'popular-now'     # must be one of the movie grid url options. 
+DEFAULT_TITLES_PER_ROW = 5 
 
 # IMDb settings
 IMDB_DATASET_ROOT = os.path.join(MEDIA_ROOT, 'datasets')
@@ -165,8 +190,7 @@ IMDB_DATASET = {
 ROTTEN_TOMATO_GET_MOVIE_URL = 'http://www.omdbapi.com/'
 ROTTEN_TOMATO_API_KEY = '18eaeb4f'
 
-# IMBD_GET_MOVIE_URL = ''
-# IMBD_GET_MOVIE_URL = ''
-# IMDB_API_KEY = ''
-
+#IMDB Offical API
+IMDB_API_URL = 'https://imdb-api.com/'
+IMDB_API_KEY = 'k_tct5xoj2'
     

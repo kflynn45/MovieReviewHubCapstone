@@ -3,23 +3,28 @@
 {% load compress %}
 <html>
     <head>
+        <title>Movie Review Hub</title>
         {% include "header.html" %}
         {% compress css %}
             <link rel="stylesheet" type="text/x-scss" href="{% static 'home.scss' %}">
         {% endcompress %}
     </head>
     <body>
+        {% include "banner.html" %}
         <h2>Welcome to a new way to get movie reviews</h2>
-        <form id="searchBar">
-            <input placeholder="Search..."></input>
+        <form id="searchBar" action="search" method="post">
+            {% csrf_token %}
+            {{ search_bar }}
         </form>
         <div id="section-titles">
-            <h3 id="popular-now">Popular Now</h3>
-            <h3 id="now-playing">Now Playing</h3>
-            <h3 id="upcoming">Upcoming</h3>
+            <a href="popular-now"><h3 id="popular-now">Popular Now</h3></a>
+            <a href="now-playing"><h3 id="now-playing">Now Playing</h3></a>
+            <a href="upcoming"><h3 id="upcoming">Upcoming</h3></a>
         </div>
-        
-        <table id="movieList"></table>
-        <script src="{% static 'home.js' %}"></script>
+        {% if titles|length < 1 %}
+            <h4>Sorry, there were no results for that search</h4>
+        {% else %}
+            {% include "grid-display.html" %}
+        {% endif %}
     </body>
 </html>

@@ -3,15 +3,15 @@
 {% load compress %}
 <html>
     <head>
+        <title>{{ title_info.title }}</title>
         {% include "header.html" %}
         {% compress css %}
-            <link rel="stylesheet" type="text/x-scss" href="{% static 'title_details.scss' %}">
+            <link rel="stylesheet" type="text/x-scss" href="{% static 'title-details.scss' %}">
         {% endcompress %}
     </head>
-    <body>
-        <!-- <img id="backdrop" src="{% static 'movie-seats-pic.jpeg' %}"> -->
+    <body style="overflow: scroll;">
+        {% include "banner.html" %}
         <img id="backdrop" src="{{ title_info.backdrop }}">
-
         <div class="container">
             <img class = poster src="{{ title_info.poster }}">
 
@@ -20,7 +20,6 @@
                 <p class="release-date"><b>Released:</b> {{title_info.release_date}}</p>
                 <p class="genres"> <b>Genre(s):</b> {{title_info.genres}}</p>
                 <p class="description"> <b>Description:</b> <br>{{title_info.description}}</p>
-                <p class="movie-trailer"> <b>Movie Trailer:</b> <br>{{title_info.movie_trailer}}</p>
             </div>
 
             <div class ="rating-area">
@@ -29,7 +28,13 @@
                 <p id="imdb-rating"> <b>IMDB Rating:</b> {{ title_info.imdb_rating }}</p>
                 <p id="movie-db-rating"><b>The Movie DB Rating:</b> {{title_info.movie_db_rating}}</p>
                 <p id="movie-db-score-rotten"><b>Rotten Tomatoes Rating:</b> {{title_info.movie_db_score_rotten}}</p>
+                <p id="metacritic"><b>Metacritic:</b> {{title_info.metacritic}}</p>
             </div>
         </div>
+
+        <div class="trailer-container">
+            <video controls="controls" src= {{title_info.movie_trailer}} ></video>
+        </div>
+        
     </body>
 </html>

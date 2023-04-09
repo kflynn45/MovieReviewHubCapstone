@@ -14,3 +14,12 @@ class ImdbRating(models.Model):
 
     def __str__(self):
         return f"{self.unique_id} | {self.rating}"
+    
+
+
+class TitleGridSetting(models.Model): 
+    setting = models.CharField(max_length=50)
+    value = models.IntegerField()
+
+    def __str__(self):
+        return self.setting
