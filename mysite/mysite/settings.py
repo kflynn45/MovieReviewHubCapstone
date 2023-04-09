@@ -151,16 +151,16 @@ COMPRESS_PRECOMPILERS = [
 
 # Settings for custom error handling 
 ERROR_MESSAGES = {
-    '1': 'The page could not be found. Please make sure your URL is correct.', 
-    '2': 'Issue fetching third party content. Please check back again later.',
-    '3': 'An internal error has occurred, or the page is invalid.',
-    '4': 'There was an issue executing your requested search. Please try again.'
+    1: 'The page could not be found. Please make sure your URL is correct.', 
+    2: 'Issue fetching third party content. Please check back again later.',
+    3: 'An internal error has occurred, or the page is invalid.',
+    4: 'There was an issue executing your requested search. Please try again.'
 }
 ERROR_RESPONSE_CODES = {
-    '1': 404, 
-    '2': 503, 
-    '3': 500, 
-    '4': 400
+    1: 404, 
+    2: 503, 
+    3: 500, 
+    4: 400
 }
 
 

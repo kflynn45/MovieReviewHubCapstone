@@ -11,6 +11,7 @@ from django.http import Http404
 from mysite import settings
 from mysite.forms import SearchForm
 from mysite.models import TitleGridSetting
+from mysite.views.error import render_error
 import requests
 
 
@@ -26,7 +27,7 @@ class Home(View):
             raise Http404()
         response = requests.get(url.format(apikey=settings.TMDB_API_KEY))
         if response.status_code != 200: 
-            return redirect('error/2')
+            return render_error(request, 2)
        
         return render(request, 'home.html', {
             'search_bar': SearchForm(), 
@@ -48,14 +49,14 @@ class Home(View):
                 query=form.cleaned_data['query']
             ))
             if response.status_code != 200: 
-                return redirect('error/2')
+                return render_error(request, 2)
             return render(request, 'home.html', {
                 'search_bar': form, 
                 'titles': get_title_displays(response.json()), 
                 'search': True 
             })
         else:
-            return redirect('error/4')
+            return render_error(request, 4)
             
 
 

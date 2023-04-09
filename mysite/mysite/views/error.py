@@ -20,7 +20,7 @@ def render_error(request, error_number):
     return response
 
 def handle_404(request, *args, **kwargs):
-    return render_error(request, '1')
+    return render_error(request, 1)
 
 def handle_500(request): 
-    return render_error(request, '3')
+    return render_error(request, 3)

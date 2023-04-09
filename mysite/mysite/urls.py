@@ -24,8 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Home.as_view(), {'action': settings.DEFAULT_HOMEPAGE_DISPLAY}, name='index'),
     path('<action>', Home.as_view()), 
-    path('titles/<title_id>', TitleDetails.as_view()), 
-    path('error/<error_number>', render_error)
+    path('titles/<title_id>', TitleDetails.as_view())
 ]
 
 # Overrides for 404/500 pages (does not apply when in debug mode)
