@@ -1,9 +1,8 @@
-{% load static %}
-<table id="written-reviews-table">
+<table id="tmdb-comments-table">
       <th style="color:white">Users of The Movie Database Said:</th>
-      {% for x in  written_reviews.results %}
+      {% for x in  tmdb_comments.results %}
       <tr>
-            <td class="written-review">
+            <td class="tmdb-comment">
                   <p>Author: {{x.author}}</p>
                   {% if x.author_details.rating == "None" %}
                         <p>{{x.author_details.rating}}</p>

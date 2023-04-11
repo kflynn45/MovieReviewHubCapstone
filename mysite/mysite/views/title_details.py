@@ -19,22 +19,29 @@ class TitleDetails(View):
     Process get requests for the title details page.
     """
     def get(self, request, title_id):
-        response = requests.get(settings.TMDB_GET_MOVIE_URL.format(
+        movieDetails = requests.get(settings.TMDB_GET_MOVIE_URL.format(
             apikey=settings.TMDB_API_KEY, 
             movieid=title_id
         ))
 
-        written_reviews = requests.get(settings.TMDB_WRITTEN_REVIEWS_URL.format(
+        tmdb_comments = requests.get(settings.TMDB_WRITTEN_REVIEWS_URL.format(
             apikey=settings.TMDB_API_KEY,
             movieid=title_id
         ))
 
-        if response.status_code != 200:
+        if movieDetails.status_code != 200:
             return redirect('error/2')
 
+        title_info = TitleDetailInfo(**movieDetails.json())
+        nyt_comments = requests.get(settings.NYT_API_URL.format(
+            apikey=settings.NYT_API_KEY,
+            query=title_info.title
+        ))
+
         return render(request, 'title-details.html', {
-            'title_info': TitleDetailInfo(**response.json()),
-            'written_reviews': written_reviews.json()
+            'title_info': title_info,
+            'tmdb_comments': tmdb_comments.json(),
+            'nyt_comments': nyt_comments.json()
         })
 
 

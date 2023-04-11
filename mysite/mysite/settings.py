@@ -194,4 +194,8 @@ ROTTEN_TOMATO_API_KEY = '18eaeb4f'
 #IMDB Offical API
 IMDB_API_URL = 'https://imdb-api.com/'
 IMDB_API_KEY = 'k_tct5xoj2'
+
+#NYT Movie Review API
+NYT_API_URL = 'https://api.nytimes.com/svc/movies/v2/reviews/search.json?query={query}&api-key={apikey}'
+NYT_API_KEY = 'KY32UPnw1w22lKgAKZd39Nn7zGECKWHF'
     

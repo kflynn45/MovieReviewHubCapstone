@@ -1,0 +1,13 @@
+<table id="nyt-comments-table">
+      <th style="color:white">The New York Times said:</th>
+      {% for x in  nyt_comments.results %}
+      <tr>
+            <td class="nyt-comment">
+                  <a href="{{x.link.url}}">{{x.headline}}</a>
+                  <p>Published: {{x.publication_date}}</p>
+                  <p>{{x.summary_short}}</p>
+                  
+            </td>
+      </tr>
+      {% endfor %}
+</table>
