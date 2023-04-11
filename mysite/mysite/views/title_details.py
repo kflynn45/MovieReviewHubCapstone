@@ -135,6 +135,3 @@ class TitleDetailInfo:
             return videoUrl
         except:
             return "Unknown"
-    
-
-
