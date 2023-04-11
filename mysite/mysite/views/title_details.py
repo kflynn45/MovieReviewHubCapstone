@@ -23,11 +23,18 @@ class TitleDetails(View):
             apikey=settings.TMDB_API_KEY, 
             movieid=title_id
         ))
+
+        written_reviews = requests.get(settings.TMDB_WRITTEN_REVIEWS_URL.format(
+            apikey=settings.TMDB_API_KEY,
+            movieid=title_id
+        ))
+
         if response.status_code != 200:
             return redirect('error/2')
 
         return render(request, 'title-details.html', {
-            'title_info': TitleDetailInfo(**response.json())
+            'title_info': TitleDetailInfo(**response.json()),
+            'written_reviews': written_reviews.json()
         })
 
 

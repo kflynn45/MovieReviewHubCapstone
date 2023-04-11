@@ -1,0 +1,17 @@
+{% load static %}
+<table id="written-reviews-table">
+      <th style="color:white">Users of The Movie Database Said:</th>
+      {% for x in  written_reviews.results %}
+      <tr>
+            <td class="written-review">
+                  <p>Author: {{x.author}}</p>
+                  {% if x.author_details.rating == "None" %}
+                        <p>{{x.author_details.rating}}</p>
+                  {% else %}
+                        <p>{{x.author_details.rating}}/10</p>
+                  {% endif %}
+                  <p>{{x.content}}</p>
+            </td>
+      </tr>
+      {% endfor %}
+</table>
