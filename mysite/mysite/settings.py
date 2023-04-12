@@ -168,7 +168,7 @@ ERROR_RESPONSE_CODES = {
 TMDB_API_KEY = 'f670b8f2faa8acefcdb8aa11655d2659'
 TMDB_IMAGE_URL = 'https://image.tmdb.org/t/p/w500'
 TMDB_GET_MOVIE_URL = 'https://api.themoviedb.org/3/movie/{movieid}?api_key={apikey}&language=en_US'
-TMDB_SEARCH_MOVIES_URL = 'https://api.themoviedb.org/3/search/movie?api_key={apikey}&query={query}&include_adult=true'
+TMDB_SEARCH_MOVIES_URL = 'https://api.themoviedb.org/3/search/movie?api_key={apikey}&query={query}&include_adult=false'
 TMDB_MOVIE_GRID_URLS = {
     'popular-now': 'https://api.themoviedb.org/3/movie/popular?api_key={apikey}&language=en-US&page={page}', 
     'now-playing': 'https://api.themoviedb.org/3/movie/now_playing?api_key={apikey}&language=en-US&page={page}', 

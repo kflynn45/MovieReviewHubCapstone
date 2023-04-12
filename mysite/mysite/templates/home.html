@@ -13,7 +13,7 @@
     <body>
         {% include "banner.html" %}
         <h2>Welcome to a new way to get movie reviews</h2>
-        <form id="searchBar" action="search" method="post">
+        <form id="searchBar" action="{% url 'tab_view' 'search' %}" method="post">
             {% csrf_token %}
             {{ search_bar }}
         </form>
