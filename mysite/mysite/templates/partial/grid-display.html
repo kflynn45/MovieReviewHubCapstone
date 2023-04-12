@@ -10,7 +10,7 @@
             {% else %}
                 <span class="material-symbols-outlined">chevron_left</span>
             {% endif %}
-            <input type="text" maxlength="2" value="{{ page }}" onkeydown="goToPage(event, '{{ action }}', this.value)" onclick="resetErrorMessage()">
+            <input type="text" maxlength="2" value="{{ page }}" onkeydown="goToPage(event, '{{ action }}', this.value)">
             <a href="{% url 'grid_page' action page|add:1 %}"> 
                 <span class="material-symbols-outlined clickable">chevron_right</span>
             </a>

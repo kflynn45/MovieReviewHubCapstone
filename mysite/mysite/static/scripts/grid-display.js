@@ -10,7 +10,3 @@ function goToPage(event, action, pageNumber) {
         window.location = `/${action}/page=${pageNumber}` 
     }
 }
-
-function resetErrorMessage() {
-    $('#paging-error-output').text("") 
-}
