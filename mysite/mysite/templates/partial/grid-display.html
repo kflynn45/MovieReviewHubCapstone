@@ -1,20 +1,38 @@
 {% load static %}
-<table id="movieList">
-    {% for row in titles %}
-        <tr>
-        {% for t in row %}
-            <td class="movieList-item">
-                <a href="/titles/{{ t.title_id }}">
-                    {% if t.poster %}
-                        <img src="{{ t.poster }}" alt="{{ t.title }}">
-                    {% else %}
-                        <img src="{% static 'generic-poster.jpg' %}">
-                    {% endif %}
+<script type="text/javascript" src="{% static 'grid-display.js' %}"></script>
+<div id="grid-container">
+    {% if not search %}
+        <div id="page-selector">
+            {% if page > 1 %}
+                <a href="{% url 'grid_page' action page|add:-1 %}">
+                    <span class="material-symbols-outlined clickable">chevron_left</span>
                 </a>
-                <p>{{ t.title }}</p>
-                <span class="material-symbols-outlined">arrow_circle_right</span>
-            </td>
+            {% else %}
+                <span class="material-symbols-outlined">chevron_left</span>
+            {% endif %}
+            <input type="text" maxlength="2" value="{{ page }}" onkeydown="goToPage(event, '{{ action }}', this.value)" onclick="resetErrorMessage()">
+            <a href="{% url 'grid_page' action page|add:1 %}"> 
+                <span class="material-symbols-outlined clickable">chevron_right</span>
+            </a>
+        </div>
+    {% endif %}
+    <table id="movieList">
+        {% for row in titles %}
+            <tr>
+            {% for t in row %}
+                <td class="movieList-item">
+                    <a href="/titles/{{ t.title_id }}">
+                        {% if t.poster %}
+                            <img src="{{ t.poster }}" alt="{{ t.title }}">
+                        {% else %}
+                            <img src="{% static 'generic-poster.jpg' %}">
+                        {% endif %}
+                    </a>
+                    <p>{{ t.title }}</p>
+                    <span class="material-symbols-outlined">arrow_circle_right</span>
+                </td>
+            {% endfor %}
+            </tr>
         {% endfor %}
-        </tr>
-    {% endfor %}
-</table>
+    </table>
+</div>

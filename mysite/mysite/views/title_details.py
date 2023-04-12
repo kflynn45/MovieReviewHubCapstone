@@ -9,9 +9,11 @@ from django.views import View
 from django.shortcuts import render, redirect
 from mysite import settings
 from mysite.models import ImdbRating
+from mysite.views.error import render_error
 import requests
 import bs4
 import json
+
 
 class TitleDetails(View):
 
@@ -24,7 +26,7 @@ class TitleDetails(View):
             movieid=title_id
         ))
         if response.status_code != 200:
-            return redirect('error/2')
+            return render_error(request, 2)
 
         return render(request, 'title-details.html', {
             'title_info': TitleDetailInfo(**response.json())

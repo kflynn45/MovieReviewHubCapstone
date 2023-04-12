@@ -7,6 +7,7 @@
         {% include "header.html" %}
         {% compress css %}
             <link rel="stylesheet" type="text/x-scss" href="{% static 'home.scss' %}">
+            <link rel="stylesheet" type="text/x-scss" href="{% static 'grid-display.scss' %}">
         {% endcompress %}
     </head>
     <body>
@@ -17,9 +18,9 @@
             {{ search_bar }}
         </form>
         <div id="section-titles">
-            <a href="popular-now"><h3 id="popular-now">Popular Now</h3></a>
-            <a href="now-playing"><h3 id="now-playing">Now Playing</h3></a>
-            <a href="upcoming"><h3 id="upcoming">Upcoming</h3></a>
+            <a href="{% url 'tab_view' 'popular-now' %}"><h3 id="popular-now">Popular Now</h3></a>
+            <a href="{% url 'tab_view' 'now-playing' %}"><h3 id="now-playing">Now Playing</h3></a>
+            <a href="{% url 'tab_view' 'upcoming' %}"><h3 id="upcoming">Upcoming</h3></a>
         </div>
         {% if titles|length < 1 %}
             <h4>Sorry, there were no results for that search</h4>
