@@ -20,18 +20,20 @@ class Home(View):
     """
     Process GET requests for the homepage. 
     """
-    def get(self, request, action):
+    def get(self, request, action, grid_page=1):
         try:
             url = settings.TMDB_MOVIE_GRID_URLS[action]
         except KeyError: 
             raise Http404()
-        response = requests.get(url.format(apikey=settings.TMDB_API_KEY))
+        response = requests.get(url.format(apikey=settings.TMDB_API_KEY, page=grid_page))
         if response.status_code != 200: 
             return render_error(request, 2)
        
         return render(request, 'home.html', {
+            'action': action, 
             'search_bar': SearchForm(), 
-            'titles': get_title_displays(response.json()) 
+            'titles': get_title_displays(response.json()), 
+            'page': grid_page 
         })
     
 

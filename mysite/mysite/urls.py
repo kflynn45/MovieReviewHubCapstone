@@ -23,7 +23,8 @@ from mysite.views.error import render_error
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Home.as_view(), {'action': settings.DEFAULT_HOMEPAGE_DISPLAY}, name='index'),
-    path('<action>', Home.as_view()), 
+    path('<action>', Home.as_view(), name='tab_view'), 
+    path('<action>/page=<int:grid_page>', Home.as_view(), name='grid_page'),
     path('titles/<title_id>', TitleDetails.as_view())
 ]
 
