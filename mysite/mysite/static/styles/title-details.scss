@@ -85,7 +85,7 @@ body {
 }
 
 .comments-container {
-    margin-left: 5%;
+    margin: 5%;
     color: white;
     
     th{
@@ -95,5 +95,9 @@ body {
     .tmdb-comment, .nyt-comment{
         border: 2px solid white;
         border-radius: 10px;
+    }
+
+    .show-txt-area{
+        display: none;
     }
 }
