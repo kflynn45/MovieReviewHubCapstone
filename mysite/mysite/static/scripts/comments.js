@@ -1,18 +1,9 @@
-// function dynamicSizeComment() {
-//       var dots = document.getElementById("dots");
-//       var readMoreText = document.getElementById("show-txt-area");
-//       var btnText = document.getElementById("show-txt-btn");
-    
-//       if (dots.style.display === "none") {
-//         dots.style.display = "inline";
-//         btnText.innerHTML = "Read more"; 
-//         readMoreText.style.display = "none";
-//       } else {
-//         dots.style.display = "none";
-//         btnText.innerHTML = "Read less"; 
-//         readMoreText.style.display = "inline";
-//       }
-//     }
+/**
+ * Author: Kevin Flynn
+ * Date: 04-12-2023
+ * 
+ * This file contains the client side scripting for comments (used in tmdb_comments.html) 
+ */
 
 $(document).ready(function(){
       $(".show-txt-btn").click(function(){
