@@ -83,3 +83,21 @@ body {
     text-align: center;
     margin-top: 2em;
 }
+
+.comments-container {
+    margin: 5%;
+    color: white;
+    
+    th{
+        text-align: center;
+    }
+
+    .tmdb-comment, .nyt-comment{
+        border: 2px solid white;
+        border-radius: 10px;
+    }
+
+    .show-txt-area{
+        display: none;
+    }
+}

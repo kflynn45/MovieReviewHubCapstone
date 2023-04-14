@@ -35,6 +35,11 @@
         <div class="trailer-container">
             <video controls="controls" src= {{title_info.movie_trailer}} ></video>
         </div>
-        
+
+        <div class="comments-container">
+            {% include 'nyt_comments.html' %}
+
+            {% include 'tmdb_comments.html' %}
+        </div>
     </body>
 </html>

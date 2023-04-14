@@ -21,15 +21,29 @@ class TitleDetails(View):
     Process get requests for the title details page.
     """
     def get(self, request, title_id):
-        response = requests.get(settings.TMDB_GET_MOVIE_URL.format(
+        movieDetails = requests.get(settings.TMDB_GET_MOVIE_URL.format(
             apikey=settings.TMDB_API_KEY, 
             movieid=title_id
         ))
+
+        tmdb_comments = requests.get(settings.TMDB_WRITTEN_REVIEWS_URL.format(
+            apikey=settings.TMDB_API_KEY,
+            movieid=title_id
+        ))
+
         if response.status_code != 200:
             return render_error(request, 2)
 
+        title_info = TitleDetailInfo(**movieDetails.json())
+        nyt_comments = requests.get(settings.NYT_API_URL.format(
+            apikey=settings.NYT_API_KEY,
+            query=title_info.title
+        ))
+
         return render(request, 'title-details.html', {
-            'title_info': TitleDetailInfo(**response.json())
+            'title_info': title_info,
+            'tmdb_comments': tmdb_comments.json(),
+            'nyt_comments': nyt_comments.json()
         })
 
 
@@ -53,12 +67,16 @@ class TitleDetailInfo:
         self.metacritic = self.get_metacritic_score(title['imdb_id'])
 
 
-    def get_imdb_score(self, imdb_id): 
-        try: 
-            rating_info = ImdbRating.objects.get(unique_id=imdb_id)
-        except: 
-            return "Unknown"
-        return rating_info.rating
+    def get_imdb_score(self, imdb_id):
+        try:
+            rotten_info_url = settings.ROTTEN_TOMATO_GET_MOVIE_URL + f'?apikey={settings.ROTTEN_TOMATO_API_KEY}&i={imdb_id}'
+            response = requests.get(rotten_info_url)
+            imdb_rating = response.json()['imdbRating']
+
+            return imdb_rating
+
+        except:
+            return ""
 
     def get_rotten_tomatoes_score(self,imdb_id):
         try:
@@ -71,24 +89,24 @@ class TitleDetailInfo:
                     rotten_tomatoes_score = rating['Value']
 
             if rotten_tomatoes_score == '':
-                return 'Unknown'
+                return ""
 
             return rotten_tomatoes_score
 
         except:
-            return 'Unknown'
+            return ""
 
     def get_movie_average_score(self,imdb_id):
         try:
-            imdb_score = ''
+            imdb_score = float(self.get_imdb_score(imdb_id)) * 10
             rotten_tomatoes_score = float(self.get_rotten_tomatoes_score(imdb_id).strip('%'))
             tmdb_score = float(self.tmdb_rating) * 10
-            average_score = round((tmdb_score + rotten_tomatoes_score) / 2 , 2)
+            average_score = round((tmdb_score + rotten_tomatoes_score + imdb_score) / 3 , 2)
 
             return average_score
 
         except:
-            return "Unknown"
+            return ""
     def get_metacritic_score(self,imdb_id):
         try:
             rotten_info_url = settings.ROTTEN_TOMATO_GET_MOVIE_URL + f'?apikey={settings.ROTTEN_TOMATO_API_KEY}&i={imdb_id}'
@@ -97,7 +115,7 @@ class TitleDetailInfo:
 
             return metacritic_score
         except:
-            return "Unknown"
+            return ""
 
     def get_movie_trailer_url(self,imdb_id):
         try:
@@ -106,7 +124,7 @@ class TitleDetailInfo:
             movie_trailer_url = response.json()['linkEmbed']
             if movie_trailer_url:
                 return movie_trailer_url
-            return "Unknown"
+            return ""
         except:
             return "Cannot get trailer URL"
     def get_movie_trailer_video_url(self,imdb_id):
@@ -122,7 +140,4 @@ class TitleDetailInfo:
                     videoUrl = item['videoUrl']
             return videoUrl
         except:
-            return "Unknown"
-    
-
-
+            return ""
