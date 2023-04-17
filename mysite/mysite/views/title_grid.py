@@ -21,10 +21,10 @@ class TitleGrid:
             pager_setting = TitleGridSetting.objects.get(setting='page selector location')
             self.pager_location = pager_setting.value
         except: 
-            self.pager_location = 'bottom'
+            self.pager_location = settings.DEFAULT_PAGER_POSITION
 
         if self.pager_location != 'top' and self.pager_location != 'bottom':
-            self.pager_location = 'bottom'
+            self.pager_location = settings.DEFAULT_PAGER_POSITION
 
     """
     Create title display objects and package them into rows for the template. 
