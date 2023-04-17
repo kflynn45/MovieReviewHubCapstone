@@ -21,20 +21,20 @@ class TitleDetails(View):
     Process get requests for the title details page.
     """
     def get(self, request, title_id):
-        movieDetails = requests.get(settings.TMDB_GET_MOVIE_URL.format(
+        movie_details = requests.get(settings.TMDB_GET_MOVIE_URL.format(
             apikey=settings.TMDB_API_KEY, 
             movieid=title_id
         ))
-
+        if movie_details.status_code != 200:
+            return render_error(request, 2)
+        
         tmdb_comments = requests.get(settings.TMDB_WRITTEN_REVIEWS_URL.format(
             apikey=settings.TMDB_API_KEY,
             movieid=title_id
         ))
 
-        if response.status_code != 200:
-            return render_error(request, 2)
+        title_info = TitleDetailInfo(**movie_details.json())
 
-        title_info = TitleDetailInfo(**movieDetails.json())
         nyt_comments = requests.get(settings.NYT_API_URL.format(
             apikey=settings.NYT_API_KEY,
             query=title_info.title
@@ -107,6 +107,7 @@ class TitleDetailInfo:
 
         except:
             return ""
+        
     def get_metacritic_score(self,imdb_id):
         try:
             rotten_info_url = settings.ROTTEN_TOMATO_GET_MOVIE_URL + f'?apikey={settings.ROTTEN_TOMATO_API_KEY}&i={imdb_id}'
@@ -127,6 +128,7 @@ class TitleDetailInfo:
             return ""
         except:
             return "Cannot get trailer URL"
+        
     def get_movie_trailer_video_url(self,imdb_id):
         try:
             movie_trailer_url = self.get_movie_trailer_url(imdb_id)
@@ -141,3 +143,5 @@ class TitleDetailInfo:
             return videoUrl
         except:
             return ""
+        
+        
