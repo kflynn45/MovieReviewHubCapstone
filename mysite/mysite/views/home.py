@@ -6,7 +6,7 @@ This file contains the server side portion of the homepage.
 """
 
 from django.views import View
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import Http404
 from mysite import settings
 from mysite.forms import SearchForm
