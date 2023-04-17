@@ -60,7 +60,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             'mysite/templates/',
-            'mysite/templates/partial/'
+            'mysite/templates/partial/',
+            'mysite/templates/partial/title_grid/'
         ],
         'APP_DIRS': True,
         'OPTIONS': {

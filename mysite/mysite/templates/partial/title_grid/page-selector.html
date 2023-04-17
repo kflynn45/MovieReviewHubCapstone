@@ -1,0 +1,17 @@
+<div id="page-selector">
+    {% if page > 1 %}
+        <a href="{% url 'grid_page' action page|add:-1 %}">
+            <span class="material-symbols-outlined clickable">chevron_left</span>
+        </a>
+    {% else %}
+        <span class="material-symbols-outlined">chevron_left</span>
+    {% endif %}
+    <input type="text" maxlength="2" value="{{ page }}" onkeydown="goToPage(event, '{{ action }}', this.value)">
+    {% if page < 99 %}
+        <a href="{% url 'grid_page' action page|add:1 %}"> 
+            <span class="material-symbols-outlined clickable">chevron_right</span>
+        </a>
+    {% else %}
+        <span class="material-symbols-outlined">chevron_right</span>
+    {% endif %}
+</div>
