@@ -8,7 +8,6 @@ This file contains the view code for the title details page.
 from django.views import View
 from django.shortcuts import render, redirect
 from mysite import settings
-from mysite.models import ImdbRating
 from mysite.views.error import render_error
 from mysite.views.title_grid import TitleGrid
 import requests
