@@ -180,14 +180,6 @@ DEFAULT_TITLES_PER_ROW = 5
 DEFAULT_PAGER_POSITION = 'bottom'
 TMDB_WRITTEN_REVIEWS_URL = 'https://api.themoviedb.org/3/movie/{movieid}/reviews?api_key={apikey}&language=en-US'
 
-# IMDb settings
-IMDB_DATASET_ROOT = os.path.join(MEDIA_ROOT, 'datasets')
-IMDB_DATASET_URL = 'https://datasets.imdbws.com/title.ratings.tsv.gz'
-IMDB_DATASET = {
-    'filename': 'imdb_ratings.tsv', 
-    'tsv_fields': ['tconst', 'averageRating', 'numVotes'],
-    'db_fields': ['unique_id', 'rating', 'votes']
-}
 
 # ROTTEN_TOMATO_URL = ''
 ROTTEN_TOMATO_GET_MOVIE_URL = 'http://www.omdbapi.com/'
