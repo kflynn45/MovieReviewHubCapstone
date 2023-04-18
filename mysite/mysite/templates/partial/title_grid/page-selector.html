@@ -1,16 +1,40 @@
 <div id="page-selector">
-    {% if page > 1 %}
-        <a href="{% url 'grid_page' action page|add:-1 %}">
-            <span class="material-symbols-outlined clickable">chevron_left</span>
-        </a>
+    {% csrf_token %}
+    <script>
+        function validate(event) {
+            let pageNumber = event.target.value
+            if(event.which === 13 && !isNaN(pageNumber) && pageNumber >= 1) {
+                goToPage(pageNumber)
+            }
+        }
+        
+        function goToPage(pageNumber) {
+            $.ajax({
+                url: "{% url 'grid_refresh' %}", 
+                method: 'POST',   
+                beforeSend: (xhr) => {
+                    xhr.setRequestHeader('X-CSRFToken', $('[name=csrfmiddlewaretoken]').val())
+                },
+                data: {
+                    url_params: JSON.stringify({
+                        action: '{{ title_grid.action }}', 
+                        page: pageNumber 
+                    })          
+                }, 
+                success: (result, status) => {
+                    $('#grid-container').replaceWith(result.title_grid_html)
+                }
+            })
+        }
+    </script> 
+    {% if title_grid.page > 1 %}
+        <span class="material-symbols-outlined clickable" onclick="goToPage({{ title_grid.page|add:-1 }})">chevron_left</span>
     {% else %}
         <span class="material-symbols-outlined">chevron_left</span>
     {% endif %}
-    <input type="text" maxlength="2" value="{{ page }}" onkeydown="goToPage(event, '{{ action }}', this.value)">
-    {% if page < 99 %}
-        <a href="{% url 'grid_page' action page|add:1 %}"> 
-            <span class="material-symbols-outlined clickable">chevron_right</span>
-        </a>
+    <input type="text" maxlength="2" value="{{ title_grid.page|default:1 }}" onkeydown="validate(event)">
+    {% if title_grid.page < 99 %}
+        <span class="material-symbols-outlined clickable" onclick="goToPage({{ title_grid.page|add:1 }})">chevron_right</span>
     {% else %}
         <span class="material-symbols-outlined">chevron_right</span>
     {% endif %}

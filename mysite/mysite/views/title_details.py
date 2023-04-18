@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect
 from mysite import settings
 from mysite.models import ImdbRating
 from mysite.views.error import render_error
+from mysite.views.title_grid import TitleGrid
 import requests
 import bs4
 import json
@@ -40,8 +41,13 @@ class TitleDetails(View):
             query=title_info.title
         ))
 
+        recommended = requests.get(settings.RECOMMENDED_URL.format(
+            apikey=settings.TMDB_API_KEY, 
+            movieid=title_id
+        ))
         return render(request, 'title-details.html', {
             'title_info': title_info,
+            'title_id': title_id,
             'tmdb_comments': tmdb_comments.json(),
             'nyt_comments': nyt_comments.json()
         })

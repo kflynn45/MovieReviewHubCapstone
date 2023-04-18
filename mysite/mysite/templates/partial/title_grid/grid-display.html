@@ -1,7 +1,7 @@
 {% load static %}
-<script type="text/javascript" src="{% static 'grid-display.js' %}"></script>
 <div id="grid-container">
-    {% if not search and title_grid.pager_location == 'top' %}
+    <script type="text/javascript" src="{% static 'grid-display.js' %}"></script>
+    {% if title_grid.show_pages and title_grid.pager_location == 'top' %}
         {% include "page-selector.html" %}
     {% endif %}
     <table id="movieList">
@@ -23,7 +23,7 @@
             </tr>
         {% endfor %}
     </table>
-    {% if not search and title_grid.pager_location == 'bottom' %}
+    {% if title_grid.show_pages and title_grid.pager_location == 'bottom' %}
         {% include "page-selector.html" %}
     {% endif %}
 </div>
