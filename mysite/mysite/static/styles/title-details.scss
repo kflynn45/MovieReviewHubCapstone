@@ -45,9 +45,20 @@ body {
         margin-left: 3%;
     }
 
+    .release-date{
+        display: inline-block;
+    }
+
+    .genre-name{
+        border: 2px solid white;
+        border-radius: 25px;
+        display: inline-block;
+        padding: 3px;
+    }
+
     p {
         margin-left: 3%;
-        margin-right: 5%;
+        margin-right: 3%;
         display: inline-grid;
     }
 }
