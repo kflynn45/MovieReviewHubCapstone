@@ -10,8 +10,8 @@ from django.shortcuts import render, redirect
 from django.http import Http404
 from mysite import settings
 from mysite.forms import SearchForm
-from mysite.models import TitleGridSetting
 from mysite.views.error import render_error
+from mysite.views.title_grid import TitleGrid
 import requests
 
 
@@ -25,14 +25,18 @@ class Home(View):
             url = settings.TMDB_MOVIE_GRID_URLS[action]
         except KeyError: 
             raise Http404()
-        response = requests.get(url.format(apikey=settings.TMDB_API_KEY, page=grid_page))
-        if response.status_code != 200: 
+        
+        title_data = requests.get(url.format(
+            apikey=settings.TMDB_API_KEY, 
+            page=grid_page
+        ))
+        if title_data.status_code != 200:
             return render_error(request, 2)
-       
+  
         return render(request, 'home.html', {
             'action': action, 
             'search_bar': SearchForm(), 
-            'titles': get_title_displays(response.json()), 
+            'title_grid': TitleGrid(title_data), 
             'page': grid_page 
         })
     
@@ -54,32 +58,12 @@ class Home(View):
                 return render_error(request, 2)
             return render(request, 'home.html', {
                 'search_bar': form, 
-                'titles': get_title_displays(response.json()), 
+                'title_grid': TitleGrid(response), 
                 'search': True 
             })
         else:
             return render_error(request, 4)
             
 
-
-
-class TitleDisplay: 
-    def __init__(self, title): 
-        self.title_id = title['id']
-        self.title = title['title']
-        self.poster = None if not title['poster_path'] else settings.TMDB_IMAGE_URL + title['poster_path']
-
-
-"""
-Package JSON response data into TitleDisplay objects, 4 per row for the template
-"""
-def get_title_displays(response):
-    try: 
-        setting = TitleGridSetting.objects.get(setting='titles per row')
-        step = int(setting.value)
-    except: 
-        step = settings.DEFAULT_TITLES_PER_ROW
-    displays = list(map(TitleDisplay, response['results']))
-    return [displays[i:i+step] for i in range(0, len(displays), step)]
 
         

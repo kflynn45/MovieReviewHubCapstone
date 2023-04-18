@@ -19,7 +19,7 @@ class ImdbRating(models.Model):
 
 class TitleGridSetting(models.Model): 
     setting = models.CharField(max_length=50)
-    value = models.IntegerField()
+    value = models.CharField(max_length=50)
 
     def __str__(self):
         return self.setting

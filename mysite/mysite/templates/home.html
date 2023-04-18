@@ -22,7 +22,7 @@
             <a href="{% url 'tab_view' 'now-playing' %}"><h3 id="now-playing">Now Playing</h3></a>
             <a href="{% url 'tab_view' 'upcoming' %}"><h3 id="upcoming">Upcoming</h3></a>
         </div>
-        {% if titles|length < 1 %}
+        {% if title_grid.titles|length < 1 %}
             <h4>Sorry, there were no results for that search</h4>
         {% else %}
             {% include "grid-display.html" %}
