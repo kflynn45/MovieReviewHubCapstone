@@ -17,8 +17,12 @@
 
             <div class="text-area">
                 <h2>{{ title_info.title }}</h2>
-                <p class="release-date"><b>Released:</b> {{title_info.release_date}}</p>
-                <p class="genres"> <b>Genre(s):</b> {{title_info.genres}}</p>
+                <p><b>Released:</b><div class="release-date">{{title_info.release_date}}</div></p>
+                <p class="genres"> <b>Genre(s):</b> 
+                    {% for x in title_info.genres %}
+                        <div class="genre-name">{{x.name}}</div>
+                    {% endfor %}
+                    </p>
                 <p class="description"> <b>Description:</b> <br>{{title_info.description}}</p>
             </div>
 
