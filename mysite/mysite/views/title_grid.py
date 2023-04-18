@@ -2,8 +2,7 @@
 author: Connor Oaks
 date: 04-17-2023
 
-The purpose of this file is to breakout the title grid logic into it's own place to keep it from being intertwined with the homepage.
-This would be very helpful should we ever want to include the title grid anywhere else on the site. 
+This file contains the server side logic for the title grid display.  
 """
 
 from django.template.loader import render_to_string
@@ -15,10 +14,7 @@ import requests
 
 
 class TitleGrid: 
-    """
-    Initialize title grid object. 
-    Throws ConnectionError if TMDB API call fails for any reason. 
-    """
+
     def __init__(self, action, **kwargs):
         if 'page' not in kwargs: 
             kwargs['page'] = 1 
@@ -54,7 +50,7 @@ class TitleGrid:
 
 
     """
-    Create title display objects and package them into rows for the template. 
+    Create objects for display and package them into rows for the template. 
     """
     def create_title_displays(self, response):
         try: 
@@ -74,7 +70,8 @@ class TitleGrid:
 
 
 """
-Refresh the titles within 
+Refresh the data and rerender the title grid display, then send the raw html back in a JSON object.
+This is used for pagination, see 'page-selector.html'
 """
 def refresh_titles(request): 
     data = json.loads(request.POST.get('url_params'))

@@ -188,7 +188,7 @@ HOMEPAGE_MOVIE_GRID_OPTIONS = [
 ]
 DEFAULT_HOMEPAGE_DISPLAY = 'popular-now'     # must be one of the homepage movie grid url options. 
 DEFAULT_TITLES_PER_ROW = 5 
-DEFAULT_PAGER_POSITION = 'bottom'
+DEFAULT_PAGER_POSITION = 'top'
 
 
 

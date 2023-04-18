@@ -2,7 +2,7 @@
     {% csrf_token %}
     <script>
         function validate(event) {
-            let pageNumber = event.target.value
+            let pageNumber = parseInt(event.target.value)
             if(event.which === 13 && !isNaN(pageNumber) && pageNumber >= 1) {
                 goToPage(pageNumber)
             }
@@ -32,7 +32,7 @@
     {% else %}
         <span class="material-symbols-outlined">chevron_left</span>
     {% endif %}
-    <input type="text" maxlength="2" value="{{ title_grid.page|default:1 }}" onkeydown="validate(event)">
+    <input type="text" maxlength="2" value="{{ title_grid.page }}" onkeydown="validate(event)">
     {% if title_grid.page < 99 %}
         <span class="material-symbols-outlined clickable" onclick="goToPage({{ title_grid.page|add:1 }})">chevron_right</span>
     {% else %}
