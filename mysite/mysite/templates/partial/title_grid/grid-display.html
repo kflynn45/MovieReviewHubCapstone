@@ -4,7 +4,7 @@
     {% if title_grid.show_pages and title_grid.pager_location == 'top' %}
         {% include "page-selector.html" %}
     {% endif %}
-    {% if title_grid.titles|length < 1%}
+    {% if title_grid.titles|length < 1 %}
         <h4>Sorry, there are no results to show at this time.</h4>
     {% endif %}
     <table id="movieList">
