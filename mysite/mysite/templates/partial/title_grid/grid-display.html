@@ -1,8 +1,11 @@
 {% load static %}
-<script type="text/javascript" src="{% static 'grid-display.js' %}"></script>
 <div id="grid-container">
-    {% if not search and title_grid.pager_location == 'top' %}
+    <script type="text/javascript" src="{% static 'grid-display.js' %}"></script>
+    {% if title_grid.show_pages and title_grid.pager_location == 'top' %}
         {% include "page-selector.html" %}
+    {% endif %}
+    {% if title_grid.titles|length < 1 %}
+        <h4>Sorry, there are no results to show at this time.</h4>
     {% endif %}
     <table id="movieList">
         {% for row in title_grid.titles %}
@@ -23,7 +26,7 @@
             </tr>
         {% endfor %}
     </table>
-    {% if not search and title_grid.pager_location == 'bottom' %}
+    {% if title_grid.show_pages and title_grid.pager_location == 'bottom' %}
         {% include "page-selector.html" %}
     {% endif %}
 </div>

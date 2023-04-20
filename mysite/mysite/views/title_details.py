@@ -6,9 +6,10 @@ This file contains the view code for the title details page.
 """
 
 from django.views import View
-from django.shortcuts import render, redirect
+from django.shortcuts import render 
 from mysite import settings
 from mysite.views.error import render_error
+from mysite.views.title_grid import TitleGrid
 import requests
 import bs4
 import json
@@ -41,8 +42,10 @@ class TitleDetails(View):
 
         return render(request, 'title-details.html', {
             'title_info': title_info,
+            'title_id': title_id,
             'tmdb_comments': tmdb_comments.json(),
-            'nyt_comments': nyt_comments.json()
+            'nyt_comments': nyt_comments.json(),
+            'title_grid': TitleGrid('recommended', movieid=title_id)
         })
 
 
