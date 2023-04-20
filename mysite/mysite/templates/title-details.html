@@ -3,10 +3,11 @@
 {% load compress %}
 <html>
     <head>
-        <title>{{ title_info.title }}</title>
+        <title>{{ title_info.title }} - Movie Review Hub</title>
         {% include "header.html" %}
         {% compress css %}
             <link rel="stylesheet" type="text/x-scss" href="{% static 'title-details.scss' %}">
+            <link rel="stylesheet" type="text/x-scss" href="{% static 'grid-display.scss' %}">
         {% endcompress %}
     </head>
     <body style="overflow: scroll;">
@@ -45,5 +46,8 @@
 
             {% include 'tmdb_comments.html' %}
         </div>
+
+        <h1>If you liked {{ title_info.title }}, checkout these recommended films:</h1>
+        {% include 'grid-display.html' %}
     </body>
 </html>

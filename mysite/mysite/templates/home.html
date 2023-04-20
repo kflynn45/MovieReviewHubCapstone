@@ -22,10 +22,6 @@
             <a href="{% url 'tab_view' 'now-playing' %}" id="now-playing"><h3 class="tab{% if action == 'now-playing' %} active{% endif %}">Now Playing</h3></a>
             <a href="{% url 'tab_view' 'upcoming' %}" id="upcoming"><h3 class="tab{% if action == 'upcoming' %} active{% endif %}">Upcoming</h3></a>
         </div>
-        {% if title_grid.titles|length < 1 %}
-            <h4>Sorry, there were no results for that search</h4>
-        {% else %}
-            {% include "grid-display.html" %}
-        {% endif %}
+        {% include "grid-display.html" %}
     </body>
 </html>
