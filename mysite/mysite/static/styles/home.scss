@@ -13,13 +13,6 @@ h2 {
       color: white;
 }
 
-h3 {
-      margin-left: 65px;
-      color: white;
-      font-size: 24pt;
-      display: inline-block;
-}
-
 h4 {
       color: white;
       text-align: center;
@@ -49,3 +42,17 @@ h4 {
       }
 }
 
+.tab {
+      margin-left: 65px;
+      color: white;
+      font-size: 20px;
+      display: inline-block;
+      border: 2px solid white;
+      border-radius: 30px;
+      padding: 5px;
+}
+
+.tab.active{
+      background: darkgray;
+      color: black;
+}
