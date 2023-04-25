@@ -34,12 +34,12 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'whitenoise.runserver_nostatic',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'whitenoise.runserver_nostatic', 
     'mysite',
     'compressor'
 ]
@@ -124,7 +124,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-STATIC_URL = 'staticfiles/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'mysite', 'static'),
     os.path.join(BASE_DIR, 'mysite', 'static', 'scripts'),
@@ -137,6 +137,7 @@ STATICFILES_FINDERS = [
     'compressor.finders.CompressorFinder'
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # Media (Default file save location)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mysite', 'media')
@@ -151,6 +152,8 @@ COMPRESS_ROOT = os.path.join(BASE_DIR, 'mysite', 'static', 'styles')
 COMPRESS_PRECOMPILERS = [
     ('text/x-scss', 'django_libsass.SassCompiler')
 ]
+COMPRESS_OFFLINE = True 
+LIBSASS_OUTPUT_STYLE = 'compressed'
 
 
 # Settings for custom error handling 
