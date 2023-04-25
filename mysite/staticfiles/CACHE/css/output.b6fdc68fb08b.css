@@ -1,0 +1,1 @@
+:root{--background-color:#3D0000}*{font-family:'poppins',sans-serif}body{background:#280000}#top-banner{position:absolute;top:0;left:0;width:100%;background:#280000;z-index:2;border-bottom:1px solid rgba(255,255,255,0.2)}h1{color:white;font-size:1.5em;display:inline-flex;margin-left:25px}#home-icon{margin-left:25px;color:white;display:inline-flex}
