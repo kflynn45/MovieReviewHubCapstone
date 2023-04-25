@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-{% load static %}
-{% load compress %}
+{% load compress static %}
 
 <!-- Media links -->
 <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
@@ -9,10 +8,10 @@
 
 <!-- SCSS -->
 {% compress css %}
-    <link rel="stylesheet" type="text/x-scss" href="{% static 'theme.scss' %}">
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'styles/theme.scss' %}">
 {% endcompress %}
 
 <!-- Scripts -->
-<script type="text/javascript" src="{% static 'jquery-3.6.3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'scripts/jquery-3.6.3.min.js' %}"></script>
 
 

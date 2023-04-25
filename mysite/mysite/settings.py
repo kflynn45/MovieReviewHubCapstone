@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-5*&*4cvn3^-j7von=ff*1op&7er=q#h!72hgtdacpur#fk%w6n
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -34,12 +35,12 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'whitenoise.runserver_nostatic',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'whitenoise.runserver_nostatic', 
     'mysite',
     'compressor'
 ]
@@ -124,19 +125,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-STATIC_URL = 'staticfiles/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'mysite', 'static'),
-    os.path.join(BASE_DIR, 'mysite', 'static', 'scripts'),
-    os.path.join(BASE_DIR, 'mysite', 'static', 'styles'),
-    os.path.join(BASE_DIR, 'mysite', 'static', 'images')
-]
+STATIC_URL = '/static/'
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder', 
     'compressor.finders.CompressorFinder'
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # Media (Default file save location)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mysite', 'media')
@@ -147,10 +143,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Compress settings
-COMPRESS_ROOT = os.path.join(BASE_DIR, 'mysite', 'static', 'styles')
+COMPRESS_ENABLED = True
+COMPRESS_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 COMPRESS_PRECOMPILERS = [
     ('text/x-scss', 'django_libsass.SassCompiler')
 ]
+COMPRESS_OFFLINE = True 
+LIBSASS_OUTPUT_STYLE = 'compressed'
 
 
 # Settings for custom error handling 

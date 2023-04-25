@@ -7,6 +7,7 @@ This file contains the server side logic for the title grid display.
 
 from django.template.loader import render_to_string
 from django.http import HttpResponseServerError, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from mysite import settings
 from mysite.models import TitleGridSetting
 import json
@@ -73,6 +74,7 @@ class TitleGrid:
 Refresh the data and rerender the title grid display, then send the raw html back in a JSON object.
 This is used for pagination, see 'page-selector.html'
 """
+@csrf_exempt
 def refresh_titles(request): 
     data = json.loads(request.POST.get('url_params'))
     grid = render_to_string('grid-display.html', {
