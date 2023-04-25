@@ -1,5 +1,4 @@
 <div id="page-selector">
-    {% csrf_token %}
     <script>
         function validate(event) {
             let pageNumber = parseInt(event.target.value)
@@ -12,9 +11,6 @@
             $.ajax({
                 url: "{% url 'grid_refresh' %}", 
                 method: 'POST',   
-                beforeSend: (xhr) => {
-                    xhr.setRequestHeader('X-CSRFToken', $('[name=csrfmiddlewaretoken]').val())
-                },
                 data: {
                     url_params: JSON.stringify({
                         action: '{{ title_grid.action }}', 

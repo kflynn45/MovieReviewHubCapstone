@@ -1,6 +1,6 @@
 {% load static %}
 <div id="grid-container">
-    <script type="text/javascript" src="{% static 'grid-display.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/grid-display.js' %}"></script>
     {% if title_grid.show_pages and title_grid.pager_location == 'top' %}
         {% include "page-selector.html" %}
     {% endif %}
@@ -16,7 +16,7 @@
                         {% if t.poster %}
                             <img src="{{ t.poster }}" alt="{{ t.title }}">
                         {% else %}
-                            <img src="{% static 'generic-poster.jpg' %}">
+                            <img src="{% static 'images/generic-poster.jpg' %}">
                         {% endif %}
                     </a>
                     <p>{{ t.title }}</p>

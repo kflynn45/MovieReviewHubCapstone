@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-{% load static %}
-{% load compress %}
+{% load compress static %}
 <html>
     <head>
         <title>{{ title_info.title }} - Movie Review Hub</title>
         {% include "header.html" %}
         {% compress css %}
-            <link rel="stylesheet" type="text/x-scss" href="{% static 'title-details.scss' %}">
-            <link rel="stylesheet" type="text/x-scss" href="{% static 'grid-display.scss' %}">
+            <link rel="stylesheet" type="text/x-scss" href="{% static 'styles/title-details.scss' %}">
+            <link rel="stylesheet" type="text/x-scss" href="{% static 'styles/grid-display.scss' %}">
         {% endcompress %}
     </head>
     <body style="overflow: scroll;">

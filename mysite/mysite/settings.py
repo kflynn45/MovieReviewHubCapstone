@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-5*&*4cvn3^-j7von=ff*1op&7er=q#h!72hgtdacpur#fk%w6n
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -125,12 +126,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'mysite', 'static'),
-    os.path.join(BASE_DIR, 'mysite', 'static', 'scripts'),
-    os.path.join(BASE_DIR, 'mysite', 'static', 'styles'),
-    os.path.join(BASE_DIR, 'mysite', 'static', 'images')
-]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder', 
@@ -148,7 +143,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Compress settings
-COMPRESS_ROOT = os.path.join(BASE_DIR, 'mysite', 'static', 'styles')
+COMPRESS_ENABLED = True
+COMPRESS_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 COMPRESS_PRECOMPILERS = [
     ('text/x-scss', 'django_libsass.SassCompiler')
 ]
