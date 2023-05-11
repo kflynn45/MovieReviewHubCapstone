@@ -8,6 +8,11 @@
             <link rel="stylesheet" type="text/x-scss" href="{% static 'styles/home.scss' %}">
             <link rel="stylesheet" type="text/x-scss" href="{% static 'styles/grid-display.scss' %}">
         {% endcompress %}
+        <style>
+            .text-search {
+                background-image: url("{% static 'icons/search-icon.png' %}"); 
+            }
+        </style>
     </head>
     <body>
         {% include "banner.html" %}
@@ -15,6 +20,7 @@
         <form id="searchBar" action="{% url 'tab_view' 'search' %}" method="post">
             {% csrf_token %}
             {{ search_bar }}
+            <input type="submit" value="Submit">
         </form>
         <div id="section-titles">
             <a href="{% url 'tab_view' 'popular-now' %}" id="popular-now"><h3 class="tab{% if action == 'popular-now' %} active{% endif %}">Popular Now</h3></a>
