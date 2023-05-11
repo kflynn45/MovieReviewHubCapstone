@@ -57,31 +57,52 @@ class TitleDetailInfo:
         self.backdrop = None if not title['backdrop_path'] else settings.TMDB_IMAGE_URL + title['backdrop_path']
         self.poster = None if not title['poster_path'] else settings.TMDB_IMAGE_URL + title['poster_path']
         self.release_date = title['release_date']
+
         self.movie_db_rating = title['vote_average']
+        self.movie_db_rating_display = "none" if self.movie_db_rating == "" else "yes"
+
+
         self.movie_db_rating_count = title['vote_count']
-        self.imdb_rating = self.get_imdb_score(title['imdb_id'])
+        self.movie_db_rating_count_display = "none" if self.movie_db_rating_count == "" else "yes"
+
+        self.imdb_rating_display = self.get_imdb_score(title['imdb_id'])[1]
+        self.imdb_rating = self.get_imdb_score(title['imdb_id'])[0]
+
         self.genres = title['genres']
         self.release_date = title['release_date']
-        self.movie_trailer = self.get_movie_trailer_video_url(title['imdb_id'])
-        self.tmdb_rating = title['vote_average']
-        self.movie_db_score_rotten = self.get_rotten_tomatoes_score(title['imdb_id'])
-        self.movie_db_score_average = self.get_movie_average_score(title['imdb_id'])
-        self.metacritic = self.get_metacritic_score(title['imdb_id'])
 
+        self.movie_trailer = self.get_movie_trailer_video_url(title['imdb_id'])
+
+        self.rotten_tomatoes_display = self.get_rotten_tomatoes_score(title['imdb_id'])[1]
+        self.movie_db_score_rotten = self.get_rotten_tomatoes_score(title['imdb_id'])[0]
+
+
+        self.metacritic_display = self.get_metacritic_score(title['imdb_id'])[1]
+        self.metacritic = self.get_metacritic_score(title['imdb_id'])[0]
+
+        self.movie_db_score_average = self.get_movie_average_score(title['imdb_id'])
 
     def get_imdb_score(self, imdb_id):
         try:
+            imdb_rating_display = "yes"
             rotten_info_url = settings.ROTTEN_TOMATO_GET_MOVIE_URL + f'?apikey={settings.ROTTEN_TOMATO_API_KEY}&i={imdb_id}'
             response = requests.get(rotten_info_url)
             imdb_rating = response.json()['imdbRating']
 
-            return imdb_rating
+            if imdb_rating == "":
+                imdb_rating_display = "none"
+
+
+            return imdb_rating,imdb_rating_display
 
         except:
-            return ""
+            imdb_rating_display = "none"
+            imdb_rating = ""
+            return imdb_rating,imdb_rating_display
 
     def get_rotten_tomatoes_score(self,imdb_id):
         try:
+            rotten_tomatoes_display = "yes"
             rotten_info_url = settings.ROTTEN_TOMATO_GET_MOVIE_URL + f'?apikey={settings.ROTTEN_TOMATO_API_KEY}&i={imdb_id}'
             response = requests.get(rotten_info_url)
             rotten_tomatoes_score = ''
@@ -91,19 +112,40 @@ class TitleDetailInfo:
                     rotten_tomatoes_score = rating['Value']
 
             if rotten_tomatoes_score == '':
-                return ""
+                rotten_tomatoes_display = "none"
 
-            return rotten_tomatoes_score
+            return rotten_tomatoes_score,rotten_tomatoes_display
 
         except:
-            return ""
+            rotten_tomatoes_display = "none"
+            rotten_tomatoes_score = ""
+            return rotten_tomatoes_score,rotten_tomatoes_display
 
     def get_movie_average_score(self,imdb_id):
         try:
-            imdb_score = float(self.get_imdb_score(imdb_id)) * 10
-            rotten_tomatoes_score = float(self.get_rotten_tomatoes_score(imdb_id).strip('%'))
-            tmdb_score = float(self.tmdb_rating) * 10
-            average_score = round((tmdb_score + rotten_tomatoes_score + imdb_score) / 3 , 2)
+            count = 4
+            try:
+                imdb_score = float(self.get_imdb_score(imdb_id)[0]) * 10
+            except:
+                imdb_score = 0
+                count = count - 1
+            try:
+                rotten_tomatoes_score = float(self.get_rotten_tomatoes_score(imdb_id)[0].strip('%'))
+            except:
+                rotten_tomatoes_score = 0
+                count = count - 1
+            try:
+                movie_db_rating = float(self.movie_db_rating) * 10
+            except:
+                movie_db_rating  = 0
+                count = count - 1
+            try:
+                metacritic = float(self.get_metacritic_score(imdb_id)[0])
+            except:
+                metacritic = 0
+                count = count - 1
+
+            average_score = round((imdb_score + rotten_tomatoes_score + movie_db_rating + metacritic) / count , 2)
 
             return average_score
 
@@ -112,13 +154,18 @@ class TitleDetailInfo:
         
     def get_metacritic_score(self,imdb_id):
         try:
+            metacritic_display = "yes"
             rotten_info_url = settings.ROTTEN_TOMATO_GET_MOVIE_URL + f'?apikey={settings.ROTTEN_TOMATO_API_KEY}&i={imdb_id}'
             response = requests.get(rotten_info_url)
             metacritic_score = response.json()['Metascore']
+            if metacritic_score == "":
+                metacritic_display = "none"
 
-            return metacritic_score
+            return metacritic_score,metacritic_display
         except:
-            return ""
+            metacritic_display = "none"
+            metacritic_score = ""
+            return metacritic_score,metacritic_display
 
     def get_movie_trailer_url(self,imdb_id):
         try:
