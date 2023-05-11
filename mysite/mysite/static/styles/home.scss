@@ -24,13 +24,15 @@ h4 {
       width: 60%;
 
       input {
+            margin-top: 10px;
+      }
+      .text-search {
             width: 100%;
             box-sizing: border-box;
             border: 2px solid #ccc;
             border-radius: 25px;
             font-size: 16px;
             background-color: white;
-            background-image: url('icons/search-icon.png');
             background-size: 22px;
             background-position: 10px 10px; 
             background-repeat: no-repeat;
